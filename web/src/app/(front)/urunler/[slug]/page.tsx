@@ -3,6 +3,12 @@ import { notFound } from "next/navigation";
 import { productsDb } from "@/data/products";
 import { blogPosts } from "@/data/blog";
 
+export function generateStaticParams() {
+  return productsDb.map((product) => ({
+    slug: product.slug,
+  }));
+}
+
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
