@@ -51,9 +51,9 @@ export const productsDb = [
     badgeBg: "bg-[#B95B32]",
     images: [
       getLocalProductImage("luma-balance-box", "/images/products/luma-balance-box.jpg"),
-      getLocalProductImage("luma-balance-box-cherry", "/images/products/luma-balance-box-cherry.png"),
-      getLocalProductImage("luma-balance-usage-model", "/images/products/luma-balance-usage-model.png"),
-      getLocalProductImage("luma-usage-guide-diagram", "/images/products/luma-usage-guide-diagram.png"),
+      getLocalProductImage("luma-balance-box-cherry", "/images/products/luma-balance-box-cherry.jpg"),
+      getLocalProductImage("luma-balance-usage-model", "/images/products/luma-balance-usage-model.jpg"),
+      getLocalProductImage("luma-usage-guide-diagram", "/images/products/luma-usage-guide-diagram.jpg"),
       getLocalProductImage("luma-warm-hug-collection", "/images/products/luma-warm-hug-collection.jpg"),
       getLocalProductImage("luma-warm-hug-lifestyle", "/images/products/luma-warm-hug-lifestyle.jpg")
     ],
@@ -121,12 +121,12 @@ export const productsDb = [
     badge: null,
     badgeBg: "",
     images: [
-      getLocalProductImage("luma-balance-pillow", "/images/products/luma-balance-pillow.png"),
-      getLocalProductImage("luma-balance-specs-diagram", "/images/products/luma-balance-specs-diagram.png"),
-      getLocalProductImage("luma-balance-usage-model", "/images/products/luma-balance-usage-model.png"),
-      getLocalProductImage("luma-usage-guide-diagram", "/images/products/luma-usage-guide-diagram.png"),
-      getLocalProductImage("luma-balance-pillow-4", "/images/products/luma-balance-pillow-4.png"),
-      getLocalProductImage("luma-balance-pillow-5", "/images/products/luma-balance-pillow-5.png")
+      getLocalProductImage("luma-balance-pillow", "/images/products/luma-balance-pillow.jpg"),
+      getLocalProductImage("luma-balance-specs-diagram", "/images/products/luma-balance-specs-diagram.jpg"),
+      getLocalProductImage("luma-balance-usage-model", "/images/products/luma-balance-usage-model.jpg"),
+      getLocalProductImage("luma-usage-guide-diagram", "/images/products/luma-usage-guide-diagram.jpg"),
+      getLocalProductImage("luma-balance-pillow-4", "/images/products/luma-balance-pillow-4.jpg"),
+      getLocalProductImage("luma-balance-pillow-5", "/images/products/luma-balance-pillow-5.jpg")
     ],
     shortDesc: "Özellikle menopoz döneminde kadın bedeni yeni bir dengeye geçer. Bu yastık ani sıcak basmaları ve stres anlarında bedene şefkatle dokunur.",
     longDesc: "Özellikle menopoz döneminde kadın bedeni, yılların bilgeliğiyle yeni bir dengeye geçer. LUMA Balance Pillow, bu dönemde yaşanan ani sıcak basmaları, huzursuzluk ve stres anlarında bedene ve ruha şefkatle dokunur.",
@@ -158,12 +158,12 @@ export const productsDb = [
     badge: null,
     badgeBg: "",
     images: [
-      getLocalProductImage("luma-warm-hug", "/images/products/luma-warm-hug.png"),
+      getLocalProductImage("luma-warm-hug", "/images/products/luma-warm-hug.jpg"),
       getLocalProductImage("luma-warm-hug-2", "/images/products/luma-warm-hug-2.jpg"),
       getLocalProductImage("luma-warm-hug-3", "/images/products/luma-warm-hug-3.jpg"),
-      getLocalProductImage("luma-warm-hug-4", "/images/products/luma-warm-hug-4.png"),
-      getLocalProductImage("luma-warm-hug-5", "/images/products/luma-warm-hug-5.png"),
-      getLocalProductImage("luma-warm-hug-6", "/images/products/luma-warm-hug-6.png")
+      getLocalProductImage("luma-warm-hug-4", "/images/products/luma-warm-hug-4.jpg"),
+      getLocalProductImage("luma-warm-hug-5", "/images/products/luma-warm-hug-5.jpg"),
+      getLocalProductImage("luma-warm-hug-6", "/images/products/luma-warm-hug-6.jpg")
     ],
     shortDesc: "Ağrılı, sancılı, dalgalı geçen regl günlerinde kendini yalnız hissetme. Bedenine yumuşacık bir sarılma sunar.",
     longDesc: "LUMA Warm Hug, doğal kiraz çekirdeklerinin içten gelen sıcaklığıyla bedenine yumuşacık bir sarılma sunar. Karın bölgesine, bele veya rahim çevresine yerleştirildiğinde kasları gevşetir, sancıları hafifletir. Lavanta ile zenginleştirilmiş içeriği sadece bedeni değil, zihni de rahatlatır.",
