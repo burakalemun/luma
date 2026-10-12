@@ -28,6 +28,17 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "dateStr",
+      title: "Görünen Tarih (Örn: 15 Kasım 2026)",
+      type: "string",
+      description: "Tarih metni olarak doğrudan göstermek isterseniz",
+    }),
+    defineField({
+      name: "time",
+      title: "Saat Aralığı (Örn: 14:00 - 17:00)",
+      type: "string",
+    }),
+    defineField({
       name: "location",
       title: "Konum (Mekan veya Zoom Linki)",
       type: "string",
@@ -39,8 +50,8 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Fiziksel", value: "fiziksel" },
-          { title: "Online", value: "online" },
+          { title: "Fiziksel", value: "Fiziksel" },
+          { title: "Online", value: "Online" },
         ],
         layout: "radio",
       },
@@ -50,28 +61,35 @@ export default defineType({
       name: "price",
       title: "Fiyat (₺)",
       type: "number",
-      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "priceStr",
+      title: "Görünen Fiyat Metni (Örn: ₺1.250)",
+      type: "string",
     }),
     defineField({
       name: "capacity",
       title: "Toplam Kontenjan",
       type: "number",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "spotsLeft",
       title: "Kalan Yer",
       type: "number",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "image",
-      title: "Görsel",
+      title: "Kapak Görseli (Dosya Yükleme)",
       type: "image",
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "imageUrl",
+      title: "Harici Görsel Linki (Opsiyonel / CSV için)",
+      type: "url",
+      description: "Dosya yüklemek yerine doğrudan Unsplash veya CDN linki yapıştırmak isterseniz",
     }),
     defineField({
       name: "description",

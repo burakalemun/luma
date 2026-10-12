@@ -1,0 +1,57 @@
+[
+  {
+    "_id": "instagramPost-1",
+    "_type": "instagramPost",
+    "title": "Luma Warm Hug nasıl kullanılır? Doğal keten ısı yastığı.",
+    "type": "reel",
+    "mediaUrl": "https://instagram.com/thelumaa_",
+    "imageUrl": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+    "views": "12K",
+    "order": 1,
+    "isActive": true
+  },
+  {
+    "_id": "instagramPost-2",
+    "_type": "instagramPost",
+    "title": "Kiraz çekirdeği termoterapisinin faydaları ve rahatlama ritüelleri",
+    "type": "post",
+    "mediaUrl": "https://instagram.com/thelumaa_",
+    "imageUrl": "https://images.unsplash.com/photo-1552693673-1bf958298935?q=80&w=800&auto=format&fit=crop",
+    "views": "",
+    "order": 2,
+    "isActive": true
+  },
+  {
+    "_id": "instagramPost-3",
+    "_type": "instagramPost",
+    "title": "Uyku ritüelinizi dönüştürün — Sessiz ve dingin bir gece.",
+    "type": "reel",
+    "mediaUrl": "https://instagram.com/thelumaa_",
+    "imageUrl": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=800&auto=format&fit=crop",
+    "views": "8.5K",
+    "order": 3,
+    "isActive": true
+  },
+  {
+    "_id": "instagramPost-4",
+    "_type": "instagramPost",
+    "title": "Ritual Box kutu açılışı (Unboxing) ve içeriği",
+    "type": "post",
+    "mediaUrl": "https://instagram.com/thelumaa_",
+    "imageUrl": "https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=800&auto=format&fit=crop",
+    "views": "",
+    "order": 4,
+    "isActive": true
+  },
+  {
+    "_id": "instagramPost-5",
+    "_type": "instagramPost",
+    "title": "5 dakikada zihin dinginliği molası & nefes egzersizi",
+    "type": "reel",
+    "mediaUrl": "https://instagram.com/thelumaa_",
+    "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop",
+    "views": "15K",
+    "order": 5,
+    "isActive": true
+  }
+]

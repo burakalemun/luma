@@ -1,5 +1,11 @@
 import Link from "next/link";
 import { productsDb } from "@/data/products";
+import {
+  TRENDYOL_STORE_URL,
+  HEPSIBURADA_STORE_URL,
+  TrendyolIcon,
+  HepsiburadaIcon,
+} from "@/components/ui/MarketplaceBrand";
 
 export default function ProductsPage() {
   const categories = ["Tümü", "Göz Maskeleri", "Denge Yastıkları", "Ağrı Yastıkları", "Mumlar"];
@@ -9,6 +15,11 @@ export default function ProductsPage() {
       {/* PAGE HEADER - EDITORIAL */}
       <section className="w-full bg-[#FDFAF7] pt-20 pb-24 md:pt-28 md:pb-32 px-6 border-b border-border/30">
         <div className="mx-auto w-full max-w-[800px] text-center flex flex-col items-center">
+          <img
+            src="/images/logo-mark.png"
+            alt="The Luma Logo"
+            className="h-14 w-auto object-contain mb-5"
+          />
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#B95B32] font-semibold mb-6">
             LUMA KOLEKSİYONU
           </p>
@@ -18,6 +29,29 @@ export default function ProductsPage() {
           <p className="text-[17px] md:text-[19px] text-muted-foreground leading-[1.85] font-light">
             Sürdürülebilir organik kumaşlar, Anadolu&apos;nun saf kiraz çekirdekleri ve aromaterapik lavantalarla hazırlanan ürünlerimiz; bedeninize ve ruhunuza hak ettiği dinginliği sunar.
           </p>
+
+          {/* MARKETPLACE LINKS */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-8 pt-6 border-t border-border/40">
+            <span className="text-[12px] text-muted-foreground font-medium">Online Mağazalarımız:</span>
+            <a
+              href={TRENDYOL_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F27A1A]/10 hover:bg-[#F27A1A] text-[#F27A1A] hover:text-white border border-[#F27A1A]/30 text-[12px] font-semibold shadow-xs hover:shadow-md transition-all duration-200 group"
+            >
+              <TrendyolIcon className="w-3.5 h-3.5 fill-current" color="currentColor" />
+              <span>Trendyol Mağazamız</span>
+            </a>
+            <a
+              href={HEPSIBURADA_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF6000]/10 hover:bg-[#FF6000] text-[#FF6000] hover:text-white border border-[#FF6000]/30 text-[12px] font-semibold shadow-xs hover:shadow-md transition-all duration-200 group"
+            >
+              <HepsiburadaIcon className="w-3.5 h-3.5 fill-current" color="currentColor" />
+              <span>Hepsiburada Mağazamız</span>
+            </a>
+          </div>
         </div>
       </section>
 

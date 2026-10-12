@@ -37,6 +37,12 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "imageUrl",
+      title: "Kapak Görseli Linki (Harici / CSV)",
+      type: "url",
+      description: "Dosya yüklemek yerine doğrudan Unsplash veya CDN görsel bağlantısı",
+    }),
+    defineField({
       name: "gallery",
       title: "Fotoğraf Galerisi",
       type: "array",
@@ -47,6 +53,12 @@ export default defineType({
       title: "Kategori",
       type: "reference",
       to: { type: "category" },
+    }),
+    defineField({
+      name: "categoryName",
+      title: "Kategori Adı (CSV / Düz Metin)",
+      type: "string",
+      description: "Doğrudan kategori adı yazmak isterseniz (örn: Doğal Yaşam & Sağlık)",
     }),
     defineField({
       name: "tags",
@@ -70,11 +82,34 @@ export default defineType({
       name: "excerpt",
       title: "Özet (SEO için kısa açıklama)",
       type: "text",
-      validation: (Rule) => Rule.max(160),
+      validation: (Rule) => Rule.max(300),
+    }),
+    defineField({
+      name: "content",
+      title: "Düz Metin İçerik (CSV / Hızlı Giriş)",
+      type: "text",
+      rows: 6,
+      description: "Zengin metin yerine doğrudan uzun metin yapıştırmak isterseniz",
+    }),
+    defineField({
+      name: "faqs",
+      title: "Sıkça Sorulan Sorular (SSS)",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "faqItem",
+          title: "Soru & Cevap",
+          fields: [
+            { name: "q", type: "string", title: "Soru" },
+            { name: "a", type: "text", title: "Cevap" },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "body",
-      title: "İçerik",
+      title: "Zengin İçerik (Editör)",
       type: "array",
       of: [
         { type: "block" },

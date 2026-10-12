@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:all": "node scripts/seed-all.mjs",
+    "seed:instagram": "node scripts/seed-sanity.mjs",
+    "import:all": "npx sanity datasets import ./data/all-data.ndjson production --replace",
+    "import:sanity": "npx sanity datasets import ./data/all-data.ndjson production --replace"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

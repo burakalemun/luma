@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "kendi-mumunu-yarat-kasim-2026",
+    "title": "Doğal Soya Mumu ve Niyet Atölyesi",
+    "dateStr": "15 Kasım 2026",
+    "time": "14:00 - 17:00",
+    "location": "LUMA Stüdyo, İstanbul",
+    "type": "Fiziksel",
+    "price": 1250,
+    "priceStr": "₺1.250",
+    "capacity": 12,
+    "spotsLeft": 3,
+    "imageUrl": "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=1200&auto=format&fit=crop",
+    "description": "Lavanta ve organik soya wax ile kendi LUMA mumunuzu tasarlayacağınız, nefes egzersiziyle başlayacak 3 saatlik arınma seansı."
+  },
+  {
+    "slug": "uyku-hijyeni-ve-nefes-aralik-2026",
+    "title": "Uyku Hijyeni ve Derin Nefes Pratikleri",
+    "dateStr": "04 Aralık 2026",
+    "time": "20:30 - 22:00",
+    "location": "Online (Zoom)",
+    "type": "Online",
+    "price": 450,
+    "priceStr": "₺450",
+    "capacity": 50,
+    "spotsLeft": 18,
+    "imageUrl": "https://images.unsplash.com/photo-1511295742362-92c96b124e86?q=80&w=1200&auto=format&fit=crop",
+    "description": "Kaliteli uykuya geçiş için sinir sistemini yatıştıran özel nefes tekniklerini ve LUMA uyku ritüellerini uygulamalı olarak öğreneceğimiz akşam seansı."
+  },
+  {
+    "slug": "aromaterapi-ve-denge-kasim-2026",
+    "title": "Aromaterapi ve İçsel Denge",
+    "dateStr": "28 Kasım 2026",
+    "time": "13:00 - 15:30",
+    "location": "LUMA Stüdyo, İstanbul",
+    "type": "Fiziksel",
+    "price": 1100,
+    "priceStr": "₺1.100",
+    "capacity": 10,
+    "spotsLeft": 0,
+    "imageUrl": "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1200&auto=format&fit=crop",
+    "description": "Doğal yağların şifalı dünyasına giriş yapıp, kendi stres karşıtı roll-on karışımınızı hazırlayacağınız kokulu bir pazar ritüeli."
+  }
+]

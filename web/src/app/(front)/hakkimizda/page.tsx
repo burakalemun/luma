@@ -1,15 +1,32 @@
 import Link from "next/link";
+import { getLocalAboutImage } from "@/lib/images";
 
 export default function AboutPage() {
+  const heroImg = getLocalAboutImage(
+    "story-hero",
+    "/images/about/story-hero.jpg"
+  );
+  const craftImg = getLocalAboutImage(
+    "story-craft",
+    "/images/story-founders.jpg"
+  );
+
   return (
     <div className="flex flex-col min-h-screen bg-background pb-0 selection:bg-primary/20">
       
       {/* 1. HERO - EDITORIAL SPLIT */}
       <section className="relative w-full h-[75vh] min-h-[600px] flex flex-col md:flex-row border-b border-border/30">
         <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 bg-[#FDFAF7]">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-primary font-semibold mb-6">
-            LUMA&apos;NIN DOĞUŞU
-          </p>
+          <div className="flex items-center gap-3 mb-6">
+            <img
+              src="/images/logo-mark.png"
+              alt="The Luma"
+              className="h-11 w-auto object-contain"
+            />
+            <p className="text-[11px] uppercase tracking-[0.3em] text-primary font-semibold">
+              LUMA&apos;NIN DOĞUŞU
+            </p>
+          </div>
           <h1 className="font-serif text-[42px] md:text-[5vw] text-foreground leading-[1.05] tracking-tight">
             Hikayemiz
           </h1>
@@ -17,10 +34,10 @@ export default function AboutPage() {
             &quot;Sen de varsın.&quot;
           </p>
         </div>
-        <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden">
+        <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden bg-secondary/20">
           <img 
-            src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1600&auto=format&fit=crop" 
-            alt="The Luma Story" 
+            src={heroImg} 
+            alt="The Luma Story - Doğal Ritüeller" 
             className="w-full h-full object-cover object-center"
           />
         </div>
@@ -60,11 +77,11 @@ export default function AboutPage() {
       {/* 4. THE FOUNDER & THE MOTHER - 2 COLUMN EDITORIAL */}
       <section className="w-full py-24 md:py-32">
         <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12 flex flex-col md:flex-row items-center gap-16 lg:gap-24">
-          <div className="w-full md:w-1/2 aspect-[3/4] relative overflow-hidden rounded-t-[100px] rounded-b-[8px]">
+          <div className="w-full md:w-1/2 aspect-[3/4] relative overflow-hidden rounded-t-[100px] rounded-b-[8px] shadow-lg bg-secondary/30">
             <img 
-              src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1200&auto=format&fit=crop" 
-              alt="Luma craftsmanship" 
-              className="w-full h-full object-cover"
+              src={craftImg} 
+              alt="The Luma Kurucuları - İlayda Kaya ve Annesi" 
+              className="w-full h-full object-cover object-center"
             />
           </div>
           <div className="w-full md:w-1/2 space-y-8 text-[17px] md:text-[19px] text-[#4A3F35] leading-[1.8] font-light">
@@ -89,8 +106,13 @@ export default function AboutPage() {
 
       {/* 5. THE TOUCH & THE RITUAL */}
       <section className="w-full bg-[#1b1510] text-white py-24 md:py-32">
-        <div className="mx-auto w-full max-w-[900px] px-6 text-center space-y-16">
-          <div className="space-y-6">
+        <div className="mx-auto w-full max-w-[1000px] px-6 text-center space-y-16">
+          <div className="space-y-6 max-w-[800px] mx-auto">
+            <img
+              src="/images/logo-mark-white.png"
+              alt="The Luma Logo"
+              className="h-16 w-auto object-contain mx-auto mb-4 opacity-90"
+            />
             <h2 className="text-[12px] uppercase tracking-[0.3em] text-white/50 font-semibold">
               LUMA&apos;NIN DOKUNUŞU
             </h2>
@@ -102,24 +124,36 @@ export default function AboutPage() {
             </p>
           </div>
           
-          <div className="w-[1px] h-24 bg-white/20 mx-auto" />
+          <div className="w-[1px] h-20 bg-white/20 mx-auto" />
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             <h2 className="text-[12px] uppercase tracking-[0.3em] text-white/50 font-semibold">
               BİR KUTUNUN İÇİNDE AÇILAN RİTÜEL ALANI
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left max-w-[700px] mx-auto pt-8">
-              <div className="border-t border-white/10 pt-4">
-                <p className="font-serif italic text-[20px] text-white/90">Lavantalı mumun kokusunda gevşeyen omuzlar…</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-[850px] mx-auto text-left">
+              <div className="space-y-6">
+                <div className="border-t border-white/10 pt-4">
+                  <p className="font-serif italic text-[20px] text-white/90">Lavantalı mumun kokusunda gevşeyen omuzlar…</p>
+                </div>
+                <div className="border-t border-white/10 pt-4">
+                  <p className="font-serif italic text-[20px] text-white/90">Sıcak ya da soğuk göz maskesiyle dinlenen bir beden…</p>
+                </div>
+                <div className="border-t border-white/10 pt-4">
+                  <p className="font-serif italic text-[20px] text-white/90">Bir fincan bitki çayıyla sakinleşen düşünceler…</p>
+                </div>
+                <div className="border-t border-white/10 pt-4">
+                  <p className="font-serif italic text-[20px] text-white/90">Ve ruhuna eşlik eden bir müzik listesi…</p>
+                </div>
               </div>
-              <div className="border-t border-white/10 pt-4">
-                <p className="font-serif italic text-[20px] text-white/90">Sıcak ya da soğuk göz maskesiyle dinlenen bir beden…</p>
-              </div>
-              <div className="border-t border-white/10 pt-4">
-                <p className="font-serif italic text-[20px] text-white/90">Bir fincan bitki çayıyla sakinleşen düşünceler…</p>
-              </div>
-              <div className="border-t border-white/10 pt-4">
-                <p className="font-serif italic text-[20px] text-white/90">Ve ruhuna eşlik eden bir müzik listesi…</p>
+
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+                <img
+                  src="/images/products/luma-warm-hug-lifestyle.jpg"
+                  alt="The Luma Ritüel Deneyimi"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
               </div>
             </div>
             

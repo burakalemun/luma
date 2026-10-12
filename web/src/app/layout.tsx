@@ -15,6 +15,15 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "The Luma | Doğal Wellness & Yaşam Tarzı",
   description: "Doğanın sıcaklığını bedeninize taşıyın. Geleneksel kiraz çekirdeği termoterapisi ve organik keten ürünler.",
+  icons: {
+    icon: [
+      { url: "/images/logo-mark.png", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    apple: [
+      { url: "/images/logo.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
