@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getBlogPosts } from "@/lib/blog";
 
+export const instant = false;
+
 export const metadata = {
   title: "Sıkça Sorulan Sorular | LUMA",
   description: "Luma ürünleri, doğal yaşam ve ruh sağlığı hakkında merak ettiğiniz her şey.",
