@@ -1,8 +1,46 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug } from "@/lib/blog";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd, SITE_NAME } from "@/lib/seo";
 
 export const instant = false;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+  if (!post) return {};
+
+  const title = `${post.title} | ${SITE_NAME}`;
+  const description = post.excerpt || post.content.slice(0, 155);
+  return {
+    title,
+    description,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: "article",
+      locale: "tr_TR",
+      siteName: SITE_NAME,
+      url: absoluteUrl(`/blog/${post.slug}`),
+      title,
+      description,
+      publishedTime: post.publishedAt,
+      authors: [post.author || SITE_NAME],
+      images: [{ url: post.image, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [post.image],
+    },
+  };
+}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -16,6 +54,30 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-background pb-32 selection:bg-[#B95B32]/20">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            image: [post.image],
+            datePublished: post.publishedAt,
+            dateModified: post.publishedAt,
+            inLanguage: "tr-TR",
+            articleSection: post.category,
+            mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+            author: { "@type": "Organization", name: post.author || SITE_NAME },
+            publisher: { "@id": absoluteUrl("/#organization") },
+          },
+          breadcrumbJsonLd([
+            { name: "Anasayfa", path: "/" },
+            { name: "Yayınlar", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+          ...(post.faqs && post.faqs.length > 0 ? [faqJsonLd(post.faqs)] : []),
+        ]}
+      />
       
       {/* BREADCRUMB */}
       <div className="w-full pt-32 pb-8 px-6 md:px-12">

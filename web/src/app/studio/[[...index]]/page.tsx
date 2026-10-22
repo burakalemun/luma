@@ -1,8 +1,32 @@
-"use client";
+import { connection } from "next/server";
+import { Suspense } from "react";
+import type { Metadata, Viewport } from "next";
+import { Studio } from "./Studio";
 
-import { NextStudio } from "next-sanity/studio";
-import config from "../../../../sanity.config";
+export const metadata: Metadata = {
+  title: "Sanity Studio | The Luma",
+  robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export function generateStaticParams() {
+  return [{ index: [] }];
+}
+
+async function StudioMarker() {
+  await connection();
+  return <Studio />;
+}
 
 export default function StudioPage() {
-  return <NextStudio config={config} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#101112] flex items-center justify-center text-white/60">Sanity Studio Yükleniyor...</div>}>
+      <StudioMarker />
+    </Suspense>
+  );
 }

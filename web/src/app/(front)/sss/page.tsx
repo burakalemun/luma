@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { getBlogPosts } from "@/lib/blog";
 
 export const instant = false;
 
 export const metadata = {
+  alternates: { canonical: "/sss" },
   title: "Sıkça Sorulan Sorular | LUMA",
   description: "Luma ürünleri, doğal yaşam ve ruh sağlığı hakkında merak ettiğiniz her şey.",
 };
@@ -81,6 +84,15 @@ export default async function FAQPage() {
 
   return (
     <div className="flex flex-col min-h-screen pb-24 bg-background selection:bg-primary/20">
+      <JsonLd
+        data={[
+          faqJsonLd(displayGroups.flatMap((g) => g.items)),
+          breadcrumbJsonLd([
+            { name: "Anasayfa", path: "/" },
+            { name: "Sıkça Sorulan Sorular", path: "/sss" },
+          ]),
+        ]}
+      />
       
       {/* PAGE HEADER */}
       <section className="w-full bg-[#FDFAF7] pt-32 pb-20 px-6 border-b border-border/30">

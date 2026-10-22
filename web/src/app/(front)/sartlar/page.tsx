@@ -1,6 +1,7 @@
 import LegalLayout from "@/components/legal/LegalLayout";
 
 export const metadata = {
+  alternates: { canonical: "/sartlar" },
   title: "Kullanım Şartları | LUMA",
   description: "The Luma web sitesi kullanım koşulları, telif hakları ve yasal uyarılar.",
 };
@@ -80,7 +81,7 @@ export default function TermsPage() {
         İşbu Kullanım Şartları Türkiye Cumhuriyeti kanunlarına tabidir. Doğabilecek her türlü uyuşmazlığın çözümünde <strong>İstanbul Mahkemeleri ve İcra Daireleri</strong> yetkilidir.
       </p>
       <p>
-        Kullanım şartlarımızla ilgili her türlü soru, telif bildirimi veya iş birliği talebiniz için bize <strong>merhaba@theluma.com</strong> e-posta adresimizden ulaşabilirsiniz.
+        Kullanım şartlarımızla ilgili her türlü soru, telif bildirimi veya iş birliği talebiniz için bize <strong>info@thelumaa.com.tr</strong> e-posta adresimizden ulaşabilirsiniz.
       </p>
     </LegalLayout>
   );

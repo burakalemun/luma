@@ -99,7 +99,8 @@ export function Footer() {
           {/* Col 4 */}
           <div className="flex flex-col gap-3">
             <h3 className="text-[#FDFAF7] text-[14px] font-semibold mb-2">İletişim</h3>
-            <a href="mailto:hello@theluma.com" className="text-[14px] text-white/55 hover:text-white transition-colors">hello@theluma.com</a>
+            <a href="mailto:info@thelumaa.com.tr" className="text-[14px] text-white/55 hover:text-white transition-colors">info@thelumaa.com.tr</a>
+            <a href="tel:+905358296000" className="text-[14px] text-white/55 hover:text-white transition-colors">0535 829 60 00</a>
             <a href="https://instagram.com/thelumaa_" className="text-[14px] text-white/55 hover:text-white transition-colors">@thelumaa_</a>
             <span className="text-[14px] text-white/55">İstanbul, Türkiye</span>
           </div>

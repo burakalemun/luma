@@ -17,16 +17,50 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [botcheck, setBotcheck] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !email || !message) return;
 
     setStatus("submitting");
-    setTimeout(() => {
-      setStatus("success");
-    }, 800);
+    setErrorMessage(null);
+
+    try {
+      const topicObj = TOPICS.find((t) => t.id === selectedTopic);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+          phone,
+          topicLabel: topicObj?.label || "Genel İletişim",
+          message,
+          botcheck,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMessage(
+          data.error || "Mesajınız iletilemedi. Lütfen daha sonra tekrar deneyiniz."
+        );
+      }
+    } catch {
+      setStatus("error");
+      setErrorMessage(
+        "Bağlantı sağlanamadı. Lütfen internet bağlantınızı kontrol ediniz veya WhatsApp üzerinden bize ulaşınız."
+      );
+    }
   };
 
   const handleReset = () => {
@@ -34,8 +68,10 @@ export default function ContactForm() {
     setEmail("");
     setPhone("");
     setMessage("");
+    setBotcheck("");
     setSelectedTopic(TOPICS[0].id);
     setStatus("idle");
+    setErrorMessage(null);
   };
 
   if (status === "success") {
@@ -72,6 +108,44 @@ export default function ContactForm() {
     >
       {/* Decorative background aura */}
       <div className="absolute -top-32 -right-32 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Honeypot field for bot spam prevention */}
+      <input
+        type="text"
+        name="botcheck"
+        value={botcheck}
+        onChange={(e) => setBotcheck(e.target.value)}
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
+      {/* ERROR BANNER */}
+      {status === "error" && errorMessage && (
+        <div className="mb-8 p-5 rounded-[20px] bg-red-50 border border-red-200/80 text-left animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex items-start gap-3">
+            <span className="material-symbols-outlined text-red-600 text-[20px] shrink-0 mt-0.5">
+              error
+            </span>
+            <div className="flex-1">
+              <p className="text-[13.5px] text-red-800 font-medium leading-[1.5]">
+                {errorMessage}
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <a
+                  href="https://wa.me/905358296000?text=Merhaba%2C%20web%20sitenizden%20ulasmak%20istedim."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#25D366] hover:underline"
+                >
+                  <span className="material-symbols-outlined text-[15px]">chat</span>
+                  <span>WhatsApp ile Hızlı Ulaşın</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* TOPIC SELECTION */}
       <div className="mb-10">
@@ -124,7 +198,7 @@ export default function ContactForm() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Örn: İlayda Kaya"
+                placeholder="Örn: İlayda Sivaslı Daşdemir"
                 className="w-full bg-background border border-border/80 focus:border-primary rounded-[16px] h-[52px] pl-11 pr-4 text-[14.5px] text-foreground focus:outline-none focus:ring-3 focus:ring-primary/10 transition-all placeholder:text-muted-foreground/40 font-light"
               />
             </div>
@@ -199,7 +273,7 @@ export default function ContactForm() {
         <Button
           type="submit"
           disabled={status === "submitting"}
-          className="w-full sm:w-auto bg-[#B95B32] hover:bg-[#A34F2A] text-white rounded-[16px] h-[54px] px-9 text-[14.5px] font-semibold transition-all duration-300 shadow-lg shadow-[#B95B32]/20 hover:shadow-xl hover:shadow-[#B95B32]/30 active:scale-98"
+          className="w-full sm:w-auto bg-[#B95B32] hover:bg-[#A34F2A] text-white rounded-[16px] h-[54px] px-9 text-[14.5px] font-semibold transition-all duration-300 shadow-lg shadow-[#B95B32]/20 hover:shadow-xl hover:shadow-[#B95B32]/30 active:scale-98 cursor-pointer"
         >
           {status === "submitting" ? (
             <span className="inline-flex items-center gap-2">

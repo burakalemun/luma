@@ -11,7 +11,7 @@ import {
   SheetClose 
 } from "@/components/ui/sheet";
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronRight, ArrowUpRight, Mail } from "lucide-react";
+import { Menu, X, ChevronRight, ArrowUpRight, Mail, Phone } from "lucide-react";
 import {
   TRENDYOL_STORE_URL,
   HEPSIBURADA_STORE_URL,
@@ -260,7 +260,7 @@ export function Header() {
               </div>
 
               {/* Drawer Bottom Info & Contact */}
-              <div className="p-5 border-t border-border/60 bg-muted/20 flex flex-col gap-3">
+              <div className="p-5 border-t border-border/60 bg-muted/20 flex flex-col gap-2.5">
                 <div className="flex items-center justify-between text-[12px] text-muted-foreground">
                   <a
                     href="https://instagram.com/thelumaa_"
@@ -272,11 +272,20 @@ export function Header() {
                     <span>@thelumaa_</span>
                   </a>
                   <a
-                    href="mailto:hello@theluma.com"
+                    href="tel:+905358296000"
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>0535 829 60 00</span>
+                  </a>
+                </div>
+                <div className="flex items-center justify-center text-[12px] text-muted-foreground">
+                  <a
+                    href="mailto:info@thelumaa.com.tr"
                     className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5" />
-                    <span>hello@theluma.com</span>
+                    <span>info@thelumaa.com.tr</span>
                   </a>
                 </div>
                 <div className="text-[11px] text-center text-muted-foreground/60">

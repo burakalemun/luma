@@ -1,5 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getLocalAboutImage } from "@/lib/images";
+
+export const metadata: Metadata = {
+  title: "Hikayemiz | The Luma",
+  description:
+    "The Luma'nın hikayesi: doğal keten, organik lavanta ve kiraz çekirdeği ile el emeği ısı terapisi ürünleri üreten bağımsız bir wellness markası.",
+  alternates: { canonical: "/hakkimizda" },
+};
 
 export default function AboutPage() {
   const heroImg = getLocalAboutImage(
@@ -80,12 +88,12 @@ export default function AboutPage() {
           <div className="w-full md:w-1/2 aspect-[3/4] relative overflow-hidden rounded-t-[100px] rounded-b-[8px] shadow-lg bg-secondary/30">
             <img 
               src={craftImg} 
-              alt="The Luma Kurucuları - İlayda Kaya ve Annesi" 
+              alt="The Luma Kurucuları - İlayda Sivaslı Daşdemir ve Annesi" 
               className="w-full h-full object-cover object-center"
             />
           </div>
           <div className="w-full md:w-1/2 space-y-8 text-[17px] md:text-[19px] text-[#4A3F35] leading-[1.8] font-light">
-            <h2 className="font-serif text-[32px] text-foreground mb-4">Ben İlayda.</h2>
+            <h2 className="font-serif text-[32px] text-foreground mb-4">Ben İlayda Sivaslı Daşdemir.</h2>
             <p>
               İnce detaylara önem veren, estetik ve doğallık arasında denge kurmaya çalışan, duygularıyla düşünen ama adımlarını planla atan biriyim. Hayatı güzelleştiren şeyin küçük anlar olduğuna inandım hep. LUMA&apos;nın çıkış noktası da tam olarak buydu: Kadınların kendileriyle yeniden temas kurabileceği anlar yaratmak. Sessiz, sade ama içten.
             </p>
@@ -189,7 +197,7 @@ export default function AboutPage() {
           
           {/* Signature */}
           <div className="pt-16 flex flex-col items-center justify-center">
-            <span className="font-serif italic text-[42px] text-primary mb-2">Sevgiyle, İlayda</span>
+            <span className="font-serif italic text-[36px] md:text-[42px] text-primary mb-2 text-center">Sevgiyle, İlayda Sivaslı Daşdemir</span>
             <span className="text-[12px] text-muted-foreground uppercase tracking-[0.2em] mt-2 font-semibold">LUMA&apos;nın Kurucusu</span>
           </div>
         </div>

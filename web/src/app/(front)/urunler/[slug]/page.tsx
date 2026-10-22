@@ -1,6 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { productsDb } from "@/data/products";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, SITE_NAME } from "@/lib/seo";
 import ProductGallery from "@/components/product/ProductGallery";
 import { TrendyolIcon, HepsiburadaIcon } from "@/components/ui/MarketplaceBrand";
 import {
@@ -20,6 +23,39 @@ export function generateStaticParams() {
   return productsDb.map((product) => ({
     slug: product.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const product = productsDb.find((p) => p.slug === slug);
+  if (!product) return {};
+
+  const title = `${product.title} | ${SITE_NAME}`;
+  const image = product.images[0];
+  return {
+    title,
+    description: product.shortDesc,
+    alternates: { canonical: `/urunler/${product.slug}` },
+    openGraph: {
+      type: "website",
+      locale: "tr_TR",
+      siteName: SITE_NAME,
+      url: absoluteUrl(`/urunler/${product.slug}`),
+      title,
+      description: product.shortDesc,
+      images: [{ url: image, alt: product.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: product.shortDesc,
+      images: [image],
+    },
+  };
 }
 
 export default async function ProductDetailPage({
@@ -43,6 +79,34 @@ export default async function ProductDetailPage({
 
   return (
     <main className="min-h-screen bg-[#FAF7F2] pt-24 md:pt-28 pb-32 selection:bg-[#B95B32]/20">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.title,
+            description: product.longDesc || product.shortDesc,
+            image: product.images.map(absoluteUrl),
+            sku: product.slug,
+            category: product.category,
+            brand: { "@type": "Brand", name: SITE_NAME },
+            material: "Doğal keten kumaş, kiraz çekirdeği, organik lavanta",
+            url: absoluteUrl(`/urunler/${product.slug}`),
+            offers: {
+              "@type": "Offer",
+              availability: "https://schema.org/InStock",
+              itemCondition: "https://schema.org/NewCondition",
+              url: product.trendyolUrl || absoluteUrl(`/urunler/${product.slug}`),
+              seller: { "@type": "Organization", name: SITE_NAME },
+            },
+          },
+          breadcrumbJsonLd([
+            { name: "Anasayfa", path: "/" },
+            { name: "Koleksiyon", path: "/urunler" },
+            { name: product.title, path: `/urunler/${product.slug}` },
+          ]),
+        ]}
+      />
       <div className="mx-auto w-full max-w-[1360px] px-6 md:px-12">
         
         {/* BREADCRUMB - Clean, subtle and container-aligned */}

@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import ContactForm from "@/components/contact/ContactForm";
 import { InstagramIcon } from "@/components/ui/MarketplaceBrand";
 
 export const metadata = {
+  alternates: { canonical: "/iletisim" },
   title: "İletişim | LUMA",
   description: "LUMA ile iletişime geçin. Kişisel ritüelleriniz, ürün danışmanlığı, kurumsal hediye çözümleri ve atölyeler hakkında bize yazın.",
 };
@@ -29,6 +32,15 @@ const FAQ_ITEMS = [
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background selection:bg-primary/20">
+      <JsonLd
+        data={[
+          faqJsonLd(FAQ_ITEMS),
+          breadcrumbJsonLd([
+            { name: "Anasayfa", path: "/" },
+            { name: "İletişim", path: "/iletisim" },
+          ]),
+        ]}
+      />
 
       {/* ─── 1. HERO SECTION ────────────────────────────────────────── */}
       <section className="relative w-full bg-[#FDFAF7] pt-24 pb-20 md:pt-32 md:pb-28 px-6 border-b border-border/40 overflow-hidden">
@@ -61,9 +73,9 @@ export default function ContactPage() {
 
           {/* Quick Connect Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-[920px] mt-12 pt-8 border-t border-border/40 text-left">
-            {/* WhatsApp */}
+            {/* WhatsApp & Telefon */}
             <a
-              href="https://wa.me/905000000000?text=Merhaba%2C%20LUMA%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+              href="https://wa.me/905358296000?text=Merhaba%2C%20LUMA%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
               target="_blank"
               rel="noopener noreferrer"
               className="p-5 rounded-[22px] bg-card border border-border/60 hover:border-[#25D366]/40 hover:shadow-md transition-all duration-300 group flex items-start gap-4"
@@ -73,10 +85,10 @@ export default function ContactPage() {
               </div>
               <div className="min-w-0">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold mb-1">
-                  WhatsApp Danışma
+                  WhatsApp & Telefon
                 </p>
                 <p className="text-[14.5px] font-semibold text-foreground group-hover:text-[#25D366] transition-colors truncate">
-                  Canlı Mesaj Gönder
+                  0535 829 60 00
                 </p>
                 <span className="text-[11.5px] text-muted-foreground mt-0.5 block">Hızlı dönüş (09:00 - 19:00)</span>
               </div>
@@ -105,7 +117,7 @@ export default function ContactPage() {
 
             {/* E-Posta */}
             <a
-              href="mailto:merhaba@theluma.com"
+              href="mailto:info@thelumaa.com.tr"
               className="p-5 rounded-[22px] bg-card border border-border/60 hover:border-primary/40 hover:shadow-md transition-all duration-300 group flex items-start gap-4"
             >
               <div className="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -116,7 +128,7 @@ export default function ContactPage() {
                   E-Posta
                 </p>
                 <p className="text-[14.5px] font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                  merhaba@theluma.com
+                  info@thelumaa.com.tr
                 </p>
                 <span className="text-[11.5px] text-muted-foreground mt-0.5 block">Resmi ve kurumsal yazışma</span>
               </div>
@@ -157,9 +169,15 @@ export default function ContactPage() {
                 İstanbul, Türkiye<br />
                 Üretim atölyemiz ve atölye çalışmalarımız yalnızca kayıtlı katılımcılar ve randevu alan misafirlerimiz için açıktır.
               </p>
-              <div className="pt-3 border-t border-border/40 flex items-center gap-2 text-[12.5px] text-primary font-medium">
-                <span className="material-symbols-outlined text-[16px]">schedule</span>
-                <span>Randevu Talepleri: merhaba@theluma.com</span>
+              <div className="pt-3 border-t border-border/40 flex flex-col gap-2 text-[12.5px] text-primary font-medium">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[16px]">call</span>
+                  <a href="tel:+905358296000" className="hover:underline">Müşteri Hattı & WhatsApp: 0535 829 60 00</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[16px]">schedule</span>
+                  <span>Randevu & Bilgi: info@thelumaa.com.tr</span>
+                </div>
               </div>
             </div>
 

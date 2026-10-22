@@ -3,14 +3,50 @@ import { getLocalProductImage } from "@/lib/images";
 export const TRENDYOL_STORE_URL = "https://www.trendyol.com/magaza/the-luma-m-1190716?sst=0&channelId=1&event=0";
 export const HEPSIBURADA_STORE_URL = "https://www.hepsiburada.com/magaza/the-luma";
 
-export const productsDb = [
+export interface ProductItem {
+  slug: string;
+  title: string;
+  subtitle: string;
+  price: string;
+  badge: string | null;
+  badgeBg: string;
+  images: string[];
+  shortDesc: string;
+  longDesc: string;
+  contents: string[];
+  usageAreas: string[];
+  care: string;
+  usage: {
+    hot: string;
+    cold: string;
+  };
+  message: string;
+  trendyolUrl: string;
+  hbUrl: string;
+  isHeated: boolean;
+  category: string;
+  categories: string[];
+}
+
+export const PRODUCT_CATEGORIES = [
+  "Tümü",
+  "Ritüel Kutuları",
+  "Göz Maskeleri",
+  "Denge Yastıkları",
+  "Ağrı Yastıkları",
+  "Mumlar",
+] as const;
+
+export const productsDb: ProductItem[] = [
   {
     slug: "luma-ritual-box",
     title: "LUMA Ritual Box",
     subtitle: "Günün yükünü bırak, kendine nazikçe dön.",
-    price: "₺950",
+    price: "",
     badge: "RİTÜEL KUTUSU",
     badgeBg: "bg-[#4A3F35]",
+    category: "Ritüel Kutuları",
+    categories: ["Ritüel Kutuları", "Göz Maskeleri", "Mumlar"],
     images: [
       getLocalProductImage("luma-ritual-box", "/images/products/luma-ritual-box.jpg"),
       getLocalProductImage("luma-ritual-box-2", "/images/products/luma-ritual-box-2.jpg"),
@@ -46,9 +82,11 @@ export const productsDb = [
     slug: "luma-balance-box",
     title: "LUMA Balance Box",
     subtitle: "Balance Serisi - Bir Anlık Denge",
-    price: "₺1100",
+    price: "",
     badge: "YENİ SERİ",
     badgeBg: "bg-[#B95B32]",
+    category: "Ritüel Kutuları",
+    categories: ["Ritüel Kutuları", "Denge Yastıkları", "Mumlar"],
     images: [
       getLocalProductImage("luma-balance-box", "/images/products/luma-balance-box.jpg"),
       getLocalProductImage("luma-balance-box-cherry", "/images/products/luma-balance-box-cherry.jpg"),
@@ -83,9 +121,11 @@ export const productsDb = [
     slug: "luma-touch-cherry",
     title: "LUMA Touch Cherry",
     subtitle: "Isıtılabilir/Soğutulabilir Göz Maskesi (80 gr)",
-    price: "₺350",
+    price: "",
     badge: null,
     badgeBg: "",
+    category: "Göz Maskeleri",
+    categories: ["Göz Maskeleri"],
     images: [
       getLocalProductImage("luma-touch-cherry", "/images/products/luma-touch-cherry.jpg"),
       getLocalProductImage("luma-touch-cherry-2", "/images/products/luma-touch-cherry-2.jpg"),
@@ -117,9 +157,11 @@ export const productsDb = [
     slug: "luma-balance-pillow",
     title: "LUMA Balance Pillow",
     subtitle: "Isıtılabilir/Soğutulabilir Rahatlama ve Denge Yastığı (480 gr)",
-    price: "₺550",
+    price: "",
     badge: null,
     badgeBg: "",
+    category: "Denge Yastıkları",
+    categories: ["Denge Yastıkları"],
     images: [
       getLocalProductImage("luma-balance-pillow", "/images/products/luma-balance-pillow.jpg"),
       getLocalProductImage("luma-balance-specs-diagram", "/images/products/luma-balance-specs-diagram.jpg"),
@@ -154,9 +196,11 @@ export const productsDb = [
     slug: "luma-warm-hug",
     title: "LUMA Warm Hug",
     subtitle: "Isıtılabilir Sıcak Ağrı Yastığı (450 gr)",
-    price: "₺490",
+    price: "",
     badge: null,
     badgeBg: "",
+    category: "Ağrı Yastıkları",
+    categories: ["Ağrı Yastıkları"],
     images: [
       getLocalProductImage("luma-warm-hug", "/images/products/luma-warm-hug.jpg"),
       getLocalProductImage("luma-warm-hug-2", "/images/products/luma-warm-hug-2.jpg"),

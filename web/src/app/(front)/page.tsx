@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +15,10 @@ import { getBlogPosts } from "@/lib/blog";
 import { getLocalProductImage } from "@/lib/images";
 
 export const instant = false;
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
   const [{ posts: instagramPosts }, latestBlogPosts] = await Promise.all([
@@ -108,8 +113,8 @@ export default async function Home() {
           <div className="relative w-full max-w-[500px] group">
             <div className="w-full aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_30px_80px_rgba(30,20,10,0.12)] relative">
               <img
-                src="/hero.jpg"
-                alt="The Luma – Doğal Isı Terapisi"
+                src={getLocalProductImage("luma-warm-hug-lifestyle", "/images/products/luma-warm-hug-lifestyle.jpg")}
+                alt="The Luma – El Yapımı Doğal Isı Yastıkları ve Ritüel Ürünleri"
                 className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1b1510]/20 to-transparent pointer-events-none" />

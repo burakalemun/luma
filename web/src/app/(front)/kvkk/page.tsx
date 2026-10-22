@@ -1,6 +1,7 @@
 import LegalLayout from "@/components/legal/LegalLayout";
 
 export const metadata = {
+  alternates: { canonical: "/kvkk" },
   title: "KVKK Aydınlatma Metni | LUMA",
   description: "6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca The Luma kişisel verilerin işlenmesi aydınlatma metni.",
 };
@@ -21,9 +22,10 @@ export default function KVKKPage() {
         KVKK uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla The Luma tarafından aşağıda açıklanan kapsamda işlenebilmektedir:
       </p>
       <ul>
-        <li><strong>Ticari Unvan / Marka:</strong> The Luma (Kurucu: İlayda Kaya)</li>
+        <li><strong>Ticari Unvan / Marka:</strong> The Luma (Kurucu: İlayda Sivaslı Daşdemir)</li>
         <li><strong>Web Sitesi:</strong> <a href="https://theluma.com" className="text-primary hover:underline">theluma.com</a></li>
-        <li><strong>İletişim E-Posta:</strong> <a href="mailto:merhaba@theluma.com" className="text-primary hover:underline">merhaba@theluma.com</a></li>
+        <li><strong>İletişim E-Posta:</strong> <a href="mailto:info@thelumaa.com.tr" className="text-primary hover:underline">info@thelumaa.com.tr</a></li>
+        <li><strong>İletişim Telefonu / WhatsApp:</strong> <a href="tel:+905358296000" className="text-primary hover:underline">0535 829 60 00</a></li>
         <li><strong>Konum / Stüdyo:</strong> İstanbul, Türkiye</li>
       </ul>
 
@@ -97,7 +99,7 @@ export default function KVKKPage() {
 
       <h2>7. Başvuru ve İletişim</h2>
       <p>
-        Yukarıda belirtilen haklarınızı kullanmak için kimliğinizi tespit edici belgeler ile birlikte talebinizi yazılı olarak veya kayıtlı elektronik posta (KEP) adresi, güvenli elektronik imza, mobil imza ya da tarafınızca Şirketimize daha önce bildirilen ve sistemimizde kayıtlı bulunan elektronik posta adresinizi kullanmak suretiyle <strong>merhaba@theluma.com</strong> adresine iletebilirsiniz. Başvurularınız, talebin niteliğine göre en kısa sürede ve en geç <strong>30 (otuz) gün</strong> içinde ücretsiz olarak sonuçlandırılacaktır.
+        Yukarıda belirtilen haklarınızı kullanmak için kimliğinizi tespit edici belgeler ile birlikte talebinizi yazılı olarak veya kayıtlı elektronik posta (KEP) adresi, güvenli elektronik imza, mobil imza ya da tarafınızca Şirketimize daha önce bildirilen ve sistemimizde kayıtlı bulunan elektronik posta adresinizi kullanmak suretiyle <strong>info@thelumaa.com.tr</strong> adresine iletebilirsiniz. Başvurularınız, talebin niteliğine göre en kısa sürede ve en geç <strong>30 (otuz) gün</strong> içinde ücretsiz olarak sonuçlandırılacaktır.
       </p>
     </LegalLayout>
   );

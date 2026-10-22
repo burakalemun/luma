@@ -4,6 +4,7 @@ import BlogListClient from "@/components/blog/BlogListClient";
 export const instant = false;
 
 export const metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog & Yayınlar | LUMA",
   description: "Doğal yaşam, ruh sağlığı, uyku hijyeni ve sürdürülebilirlik üzerine derinlemesine rehberler ve ilham veren ritüeller.",
 };

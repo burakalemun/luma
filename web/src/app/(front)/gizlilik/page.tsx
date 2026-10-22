@@ -1,6 +1,7 @@
 import LegalLayout from "@/components/legal/LegalLayout";
 
 export const metadata = {
+  alternates: { canonical: "/gizlilik" },
   title: "Gizlilik ve Çerez Politikası | LUMA",
   description: "The Luma gizlilik ilkeleri, çerez (cookie) yönetimi ve kişisel verilerin korunması politikası.",
 };
@@ -97,7 +98,7 @@ export default function PrivacyPage() {
         The Luma, işbu Gizlilik ve Çerez Politikası&apos;nı yasal mevzuat veya hizmet gereksinimleri doğrultusunda dilediği zaman güncelleme hakkını saklı tutar. Güncellenmiş metin sitede yayımlandığı tarihten itibaren geçerlilik kazanır.
       </p>
       <p>
-        Gizlilik politikamızla ilgili görüş, öneri ve talepleriniz için bize her zaman <strong>merhaba@theluma.com</strong> adresinden ulaşabilirsiniz.
+        Gizlilik politikamızla ilgili görüş, öneri ve talepleriniz için bize her zaman <strong>info@thelumaa.com.tr</strong> adresinden ulaşabilirsiniz.
       </p>
     </LegalLayout>
   );
