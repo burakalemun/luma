@@ -51,6 +51,9 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
   robots: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  verification: {
+    google: "googlee0144c24fccabb97",
+  },
   icons: {
     icon: [
       { url: "/images/logo-mark.png", type: "image/png" },

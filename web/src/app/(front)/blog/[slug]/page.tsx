@@ -115,14 +115,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       {/* ARTICLE BODY */}
       <article className="mx-auto w-full max-w-[700px] px-6 md:px-0 prose prose-lg prose-headings:font-serif prose-headings:text-foreground prose-p:text-[#4A3F35] prose-p:font-light prose-p:leading-[1.85] prose-a:text-[#B95B32]">
-        <p className="text-[19px] leading-[1.85] text-[#4A3F35] font-light drop-cap first-letter:text-[60px] first-letter:font-serif first-letter:text-[#B95B32] first-letter:float-left first-letter:mr-3 first-letter:mt-[-8px]">
-          {post.content}
-        </p>
-        
-        {/* Placeholder for future extended content */}
-        <p className="mt-6">
-          Doğa, insanın kendini yeniden bulabileceği en büyük şifa kaynağıdır. Modern hayatın getirdiği hız, bizi kendi doğamızdan uzaklaştırırken; organik malzemelerin saf dokunuşları bizi tekrar merkezimize döndürür. Bu yazıda paylaştığımız detayların, kendi ritüelinizi oluşturmanıza ilham vermesini dileriz.
-        </p>
+        {post.content
+          .split("\n\n")
+          .map((p) => p.trim())
+          .filter(Boolean)
+          .map((paragraph, pIdx) => (
+            <p
+              key={pIdx}
+              className={`text-[18px] leading-[1.85] text-[#4A3F35] font-light mb-6 ${
+                pIdx === 0
+                  ? "drop-cap first-letter:text-[54px] first-letter:font-serif first-letter:text-[#B95B32] first-letter:float-left first-letter:mr-3 first-letter:mt-[-6px]"
+                  : ""
+              }`}
+            >
+              {paragraph}
+            </p>
+          ))}
 
         {/* MİNİ SSS KUTUCUKLARI (YAZI SONU) */}
         {post.faqs && post.faqs.length > 0 && (

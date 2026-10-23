@@ -5,19 +5,19 @@
 Ürünler Trendyol ve Hepsiburada resmi mağazalarımız üzerinden satılır. Web sitesi bilgi, ürün detayı, blog ve atölye (workshop) içerikleri sunar.
 
 ## Ana Sayfalar
-- [Ürünler](https://thelumaa.com.tr/urunler): Göz maskeleri, boyun/sırt ısı yastıkları, ritüel kutuları, mumlar
-- [Hakkımızda](https://thelumaa.com.tr/hakkimizda): Marka hikayesi ve kurucular
-- [Workshop & Atölyeler](https://thelumaa.com.tr/workshop): Wellness atölyeleri ve etkinlik takvimi
-- [Blog](https://thelumaa.com.tr/blog): Doğal yaşam, uyku hijyeni, ruh sağlığı rehberleri
-- [Sıkça Sorulan Sorular](https://thelumaa.com.tr/sss): Sipariş, kargo, ürün kullanımı, iade
-- [İletişim](https://thelumaa.com.tr/iletisim): info@thelumaa.com.tr, +90 535 829 60 00
+- [Ürünler](https://thelumaa.com/urunler): Göz maskeleri, boyun/sırt ısı yastıkları, ritüel kutuları, mumlar
+- [Hakkımızda](https://thelumaa.com/hakkimizda): Marka hikayesi ve kurucular
+- [Workshop & Atölyeler](https://thelumaa.com/workshop): Wellness atölyeleri ve etkinlik takvimi
+- [Blog](https://thelumaa.com/blog): Doğal yaşam, uyku hijyeni, ruh sağlığı rehberleri
+- [Sıkça Sorulan Sorular](https://thelumaa.com/sss): Sipariş, kargo, ürün kullanımı, iade
+- [İletişim](https://thelumaa.com/iletisim): info@thelumaa.com, +90 535 829 60 00
 
 ## Ürünler
-- [LUMA Touch Cherry](https://thelumaa.com.tr/urunler/luma-touch-cherry): Kiraz-vişne çekirdekli göz maskesi, sıcak/soğuk kullanım
-- [LUMA Warm Hug](https://thelumaa.com.tr/urunler/luma-warm-hug): Regl dönemi için ısı yastığı
-- [LUMA Balance Pillow](https://thelumaa.com.tr/urunler/luma-balance-pillow): Menopoz dönemi sıcak basmaları ve stres için denge yastığı
-- [LUMA Ritual Box](https://thelumaa.com.tr/urunler/luma-ritual-box): Göz maskesi, lavantalı mum, bitki çayı ve müzik notu içeren ritüel kutusu
-- [LUMA Balance Box](https://thelumaa.com.tr/urunler/luma-balance-box): Hormonal geçiş dönemleri için özel terapi kutusu
+- [LUMA Touch Cherry](https://thelumaa.com/urunler/luma-touch-cherry): Kiraz-vişne çekirdekli göz maskesi, sıcak/soğuk kullanım
+- [LUMA Warm Hug](https://thelumaa.com/urunler/luma-warm-hug): Regl dönemi için ısı yastığı
+- [LUMA Balance Pillow](https://thelumaa.com/urunler/luma-balance-pillow): Menopoz dönemi sıcak basmaları ve stres için denge yastığı
+- [LUMA Ritual Box](https://thelumaa.com/urunler/luma-ritual-box): Göz maskesi, lavantalı mum, bitki çayı ve müzik notu içeren ritüel kutusu
+- [LUMA Balance Box](https://thelumaa.com/urunler/luma-balance-box): Hormonal geçiş dönemleri için özel terapi kutusu
 
 ## Sık Sorulan Bilgiler
 - Isıtma: Mikrodalgada düşük ısıda kısa süreli (ürün sayfasındaki talimata göre) veya kalorifer peteği üzerinde.

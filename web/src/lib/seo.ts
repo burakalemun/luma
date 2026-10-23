@@ -1,7 +1,7 @@
 import { CONTACT_INFO } from "@/lib/contact";
 
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://thelumaa.com.tr"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://thelumaa.com"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "The Luma";
