@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { productsDb } from "@/data/products";
 
 function slugify(text: string) {
   return String(text || "")
@@ -123,42 +124,37 @@ export async function GET() {
       };
     });
 
-    // 4. Products
-    const productsFilePath = path.join(dataDir, "products.json");
-    let productDocs: any[] = [];
-    if (fs.existsSync(productsFilePath)) {
-      const productsRaw = JSON.parse(fs.readFileSync(productsFilePath, "utf-8"));
-      productDocs = productsRaw.map((prod: any, idx: number) => {
-        const slug = prod.slug || slugify(prod.title) || `product-${idx + 1}`;
-        return {
-          _id: `product-${slug}`,
-          _type: "product",
-          title: prod.title,
-          slug: { _type: "slug", current: slug },
-          subtitle: prod.subtitle || "",
-          category: prod.category || "Ritüel Kutuları",
-          categories: Array.isArray(prod.categories) ? prod.categories : [prod.category || "Ritüel Kutuları"],
-          price: prod.price || "",
-          badge: prod.badge || null,
-          badgeBg: prod.badgeBg || "bg-[#4A3F35]",
-          order: Number(prod.order) || idx + 1,
-          isFeatured: prod.isFeatured !== false,
-          mainImageUrl: prod.mainImageUrl || "",
-          galleryUrls: Array.isArray(prod.galleryUrls) ? prod.galleryUrls : [],
-          shortDesc: prod.shortDesc || "",
-          longDesc: prod.longDesc || "",
-          message: prod.message || "",
-          isHeated: prod.isHeated !== false,
-          contents: Array.isArray(prod.contents) ? prod.contents : [],
-          usageAreas: Array.isArray(prod.usageAreas) ? prod.usageAreas : [],
-          usageHot: prod.usageHot || "",
-          usageCold: prod.usageCold || "",
-          care: prod.care || "",
-          trendyolUrl: prod.trendyolUrl || "",
-          hbUrl: prod.hbUrl || "",
-        };
-      });
-    }
+    // 4. Products (Bundled directly from productsDb - 100% serverless safe)
+    const productDocs = productsDb.map((prod, idx) => {
+      const slug = prod.slug || slugify(prod.title) || `product-${idx + 1}`;
+      return {
+        _id: `product-${slug}`,
+        _type: "product",
+        title: prod.title,
+        slug: { _type: "slug", current: slug },
+        subtitle: prod.subtitle || "",
+        category: prod.category || "Ritüel Kutuları",
+        categories: Array.isArray(prod.categories) ? prod.categories : [prod.category || "Ritüel Kutuları"],
+        price: prod.price || "",
+        badge: prod.badge || null,
+        badgeBg: prod.badgeBg || "bg-[#4A3F35]",
+        order: idx + 1,
+        isFeatured: true,
+        mainImageUrl: prod.images?.[0] || "",
+        galleryUrls: prod.images?.slice(1) || [],
+        shortDesc: prod.shortDesc || "",
+        longDesc: prod.longDesc || "",
+        message: prod.message || "",
+        isHeated: prod.isHeated !== false,
+        contents: Array.isArray(prod.contents) ? prod.contents : [],
+        usageAreas: Array.isArray(prod.usageAreas) ? prod.usageAreas : [],
+        usageHot: prod.usage?.hot || "",
+        usageCold: prod.usage?.cold || "",
+        care: prod.care || "",
+        trendyolUrl: prod.trendyolUrl || "",
+        hbUrl: prod.hbUrl || "",
+      };
+    });
 
     const allDocuments = [
       ...categoryDocs,

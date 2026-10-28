@@ -108,10 +108,179 @@ export function BulkImportTool() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+// 5 Hazır Ürün Fallback Listesi (API gecikmesi durumunda doğrudan hazır)
+const FALLBACK_PRODUCTS = [
+  {
+    _id: "product-luma-ritual-box",
+    _type: "product",
+    title: "LUMA Ritual Box",
+    slug: { _type: "slug", current: "luma-ritual-box" },
+    subtitle: "Günün yükünü bırak, kendine nazikçe dön.",
+    category: "Ritüel Kutuları",
+    categories: ["Ritüel Kutuları", "Göz Maskeleri", "Mumlar"],
+    price: "",
+    badge: "RİTÜEL KUTUSU",
+    badgeBg: "bg-[#4A3F35]",
+    order: 1,
+    isFeatured: true,
+    mainImageUrl: "/images/products/luma-ritual-box.jpg",
+    galleryUrls: [
+      "/images/products/luma-ritual-box-2.jpg",
+      "/images/products/luma-ritual-box-3.jpg",
+      "/images/products/luma-ritual-box-4.jpg",
+      "/images/products/luma-ritual-box-5.jpg"
+    ],
+    shortDesc: "Kiraz çekirdekli göz maskesi, lavantalı mum, bitki çayı ve özel Spotify listesi ile rahatlama ritüeli.",
+    longDesc: "LUMA Ritual Box, yorucu bir günün ardından kendine sığındığın o sessiz anı yaratmak için tasarlandı. İçeriğindeki LUMA Touch Cherry ile gözlerini dinlendirirken, LUMA Calm mumunun ışığında zihnini yavaşlat. LUMA Breath çayının hafifliği ve LUMA Sound müzik listesiyle bütünsel bir arınma yaşa.",
+    message: "Gözlerini kapat, dünyanın sesini susturalım.",
+    isHeated: true,
+    contents: [
+      "1 Adet LUMA Touch Cherry (Kiraz-vişne çekirdekli Göz Maskesi)",
+      "1 Adet LUMA Calm (Lavantalı Soya Mumu)",
+      "1 Adet LUMA Breath (Organik Bitki Çayı)",
+      "1 Adet LUMA Sound (QR Kodlu Spotify Müzik Notu)",
+      "🎁 HEDİYE: LUMA Skin (Lavantalı El Yapımı Sabun)"
+    ],
+    usageAreas: [
+      "Göz yorgunluğu ve şişliklerde rahatlatıcı etki",
+      "Migren ve baş ağrılarında destekleyici kullanım",
+      "Uyku öncesi sakinleştirici etki"
+    ],
+    usageHot: "Göz bandınızın temiz ve kuru olduğundan emin olun. Mikrodalgada 500-600W düşük ayarda, 20-30 sn ısıtın. Yeterince ısınmamışsa 10’ar saniyelik ek süreler verin. Mumu niyetinle yak ve çayını 5 dk demle.",
+    usageCold: "Göz maskesini hava almayan bir poşete koyarak 30-60 dakika boyunca buzdolabında veya derin dondurucuda bekletin. Poşetten çıkarıp doğrudan göz çevresine uygulayın.",
+    care: "Çıkarılabilir dış kılıfı elde yıkayabilirsiniz, dolgulu olan iç kısmı kullanımdan sonra havalandırın, yıkamayın. Serin ve kuru ortamda saklayın. Çocukların erişemeyeceği yerde muhafaza edin.",
+    trendyolUrl: "https://www.trendyol.com/magaza/the-luma-m-1190716?sst=0&channelId=1&event=0",
+    hbUrl: "https://www.hepsiburada.com/magaza/the-luma",
+  },
+  {
+    _id: "product-luma-balance-box",
+    _type: "product",
+    title: "LUMA Balance Box",
+    slug: { _type: "slug", current: "luma-balance-box" },
+    subtitle: "Balance Serisi - Bir Anlık Denge",
+    category: "Ritüel Kutuları",
+    categories: ["Ritüel Kutuları", "Denge Yastıkları", "Mumlar"],
+    price: "",
+    badge: "YENİ SERİ",
+    badgeBg: "bg-[#B95B32]",
+    order: 2,
+    isFeatured: true,
+    mainImageUrl: "/images/products/luma-balance-box.jpg",
+    galleryUrls: ["/images/products/luma-balance-box-2.jpg", "/images/products/luma-balance-box-3.jpg"],
+    shortDesc: "Tohum dolgulu denge yastığı, lavantalı mum ve bitki çayı ile tasarlanmış tam bir dinginlik kiti.",
+    longDesc: "LUMA Balance Box; zihninizi sakinleştirmek, bedeninizi topraklamak ve günlük stresin yükünü hafifletmek için özenle bir araya getirildi. Balance Yastığı karın veya göğüs üzerine yerleştirildiğinde derin bir gevşeme hissi verir.",
+    message: "Bir an dur. Nefesine dön, dengeni hatırla.",
+    isHeated: true,
+    contents: [
+      "1 Adet LUMA Balance Pillow (Doğal Tohumlu Denge Yastığı)",
+      "1 Adet LUMA Calm (Lavantalı Doğal Mum)",
+      "1 Adet LUMA Breath (Rahatlatıcı Bitki Çayı)",
+      "1 Adet LUMA Sound (Denge & Meditasyon Spotify Listesi)"
+    ],
+    usageAreas: [
+      "Nefes ve meditasyon pratiklerinde odaklanma",
+      "Stres ve anksiyete anlarında topraklanma desteği",
+      "Karın ve göğüs bölgesinde rahatlatıcı ağırlık hissi"
+    ],
+    usageHot: "Mikrodalgada 500-600W ayarında 30-45 saniye ısıtın. Doğrudan karın veya göğüs bölgenize yerleştirerek derin nefes alın.",
+    usageCold: "Hava almayan kilitli poşette buzdolabında 1 saat bekletin. Ferahlamak istediğinizde uygulayın.",
+    care: "Dış kılıf çıkarılabilir ve elde ılık suyla yıkanabilir. İç tohum torbası asla yıkanmamalıdır.",
+    trendyolUrl: "https://www.trendyol.com/magaza/the-luma-m-1190716?sst=0&channelId=1&event=0",
+    hbUrl: "https://www.hepsiburada.com/magaza/the-luma",
+  },
+  {
+    _id: "product-luma-touch-cherry",
+    _type: "product",
+    title: "LUMA Touch Cherry",
+    slug: { _type: "slug", current: "luma-touch-cherry" },
+    subtitle: "Kiraz Çekirdeği Göz Maskesi",
+    category: "Göz Maskeleri",
+    categories: ["Göz Maskeleri", "Ağrı Yastıkları"],
+    price: "",
+    badge: "ÇOK SATAN",
+    badgeBg: "bg-[#7C2D12]",
+    order: 3,
+    isFeatured: true,
+    mainImageUrl: "/images/products/luma-touch-cherry.jpg",
+    galleryUrls: ["/images/products/luma-touch-cherry-2.jpg", "/images/products/luma-touch-cherry-3.jpg"],
+    shortDesc: "Ekran yorgunluğu ve baş ağrıları için sıcak & soğuk termoterapi göz maskesi.",
+    longDesc: "Doğal kiraz çekirdekleri, ısıyı uzun süre muhafaza etme ve homojen biçimde yayma özelliğine sahiptir. LUMA Touch Cherry, yorgun göz çevresini dinlendirir, sinüs baskısını hafifletir ve uykuya dalışı kolaylaştırır.",
+    message: "Gözlerine hak ettiği dinlenmeyi hediye et.",
+    isHeated: true,
+    contents: [
+      "1 Adet LUMA Touch Cherry Göz Maskesi",
+      "1 Adet Keten Saklama Kesesi",
+      "Kullanım & Bakım Kılavuzu"
+    ],
+    usageAreas: [
+      "Yoğun ekran kullanımı sonrası göz yorgunluğu",
+      "Sinüzit, migren ve gerilim tipi baş ağrıları",
+      "Uykusuzluk ve derin dinlenme seansları"
+    ],
+    usageHot: "Mikrodalgada 500-600W ayarında 20-30 saniye ısıtın. Sıcaklığı bileğinizde kontrol ettikten sonra gözlerinize yerleştirin.",
+    usageCold: "Buzdolabında 45-60 dakika soğutun. Şişlik ve morluk gidermek için soğuk kompres yapın.",
+    care: "Yıkanabilir dış kılıf. Çekirdek torbasını kuru ve havadar yerde saklayın.",
+    trendyolUrl: "https://www.trendyol.com/magaza/the-luma-m-1190716?sst=0&channelId=1&event=0",
+    hbUrl: "https://www.hepsiburada.com/magaza/the-luma",
+  },
+  {
+    _id: "product-luma-balance-pillow",
+    _type: "product",
+    title: "LUMA Balance Pillow",
+    slug: { _type: "slug", current: "luma-balance-pillow" },
+    subtitle: "Doğal Tohumlu Ağırlık & Denge Yastığı",
+    category: "Denge Yastıkları",
+    categories: ["Denge Yastıkları", "Ağrı Yastıkları"],
+    price: "",
+    badge: null,
+    badgeBg: "bg-[#4A3F35]",
+    order: 4,
+    isFeatured: false,
+    mainImageUrl: "/images/products/luma-balance-box.jpg",
+    galleryUrls: ["/images/products/luma-balance-box-2.jpg"],
+    shortDesc: "Karın, omuz ve sırt için derin baskı terapisi sunan keten ısı yastığı.",
+    longDesc: "Bedenin belirli noktalarına uygulanan hafif ağırlık, sinir sistemini yatıştırır ve derin bir güven hissi verir. Regl krampları, boyun ve sırt gerginliklerinde ideal destekçiniz.",
+    message: "Bedenini dinle, gerginliği serbest bırak.",
+    isHeated: true,
+    contents: ["1 Adet LUMA Balance Pillow", "Keten Koruma Çantası"],
+    usageAreas: ["Regl ve kasık ağrıları", "Boyun ve omuz tutulmaları", "Stres anında göğüs üzeri topraklanma"],
+    usageHot: "Mikrodalgada 1-1.5 dakika ısıtın. Ağrılı bölgeye yerleştirin.",
+    usageCold: "Dondurucuda 1 saat bekleterek burkulma ve ödemlerde kullanın.",
+    care: "Dış kılıf elde veya hassas programda 30°C'de yıkanabilir.",
+    trendyolUrl: "https://www.trendyol.com/magaza/the-luma-m-1190716?sst=0&channelId=1&event=0",
+    hbUrl: "https://www.hepsiburada.com/magaza/the-luma",
+  },
+  {
+    _id: "product-luma-warm-hug",
+    _type: "product",
+    title: "LUMA Warm Hug",
+    slug: { _type: "slug", current: "luma-warm-hug" },
+    subtitle: "Boyun & Sırt İçin Doğal Isı Yastığı",
+    category: "Ağrı Yastıkları",
+    categories: ["Ağrı Yastıkları"],
+    price: "",
+    badge: "ÖZEL TASARIM",
+    badgeBg: "bg-[#1E3A8A]",
+    order: 5,
+    isFeatured: true,
+    mainImageUrl: "/images/products/luma-warm-hug-lifestyle.jpg",
+    galleryUrls: [],
+    shortDesc: "Ergonomik formu ile omuz ve enseye tam oturan doğal kiraz çekirdeği yastığı.",
+    longDesc: "Masa başı çalışanlar için özel olarak anatomik hatlara uygun dikilen LUMA Warm Hug, boyun ve ense hattını sararak kasılmış kasları gevşetir. Sıcaklığı kan dolaşımını hızlandırır.",
+    message: "Sıcak bir kucaklaşma gibi; omzundaki tüm yükü alır.",
+    isHeated: true,
+    contents: ["1 Adet LUMA Warm Hug Yastık", "Özel Keten Taşıma Kesesi"],
+    usageAreas: ["Masa başı çalışma sonrası boyun sertliği", "Bel ve sırt spazmları", "Soğuk kış günlerinde ısınma"],
+    usageHot: "Mikrodalgada 1-2 dakika ısıtın. Omuzlarınıza yerleştirip gevşeyin.",
+    usageCold: "Gerektiğinde dondurucuda soğutup kullanabilirsiniz.",
+    care: "Yalnızca dış kılıfı yıkayınız. Çekirdekli gövdeyi ıslatmayınız.",
+    trendyolUrl: "https://www.trendyol.com/magaza/the-luma-m-1190716?sst=0&channelId=1&event=0",
+    hbUrl: "https://www.hepsiburada.com/magaza/the-luma",
+  }
+];
+
   // Toplu Aktarım İşlemi
   const handleImportByType = async (type: "instagramPost" | "workshop" | "post" | "product" | "all") => {
-    if (documents.length === 0) return;
-
     try {
       setBusy(true);
       setStatusMessage("Sanity bulutuna aktarılıyor... Lütfen bekleyin.");
@@ -130,7 +299,21 @@ export function BulkImportTool() {
         label = "Blog Yazıları ve Kategoriler";
       } else if (type === "product") {
         docsToImport = documents.filter((d) => d._type === "product");
+        if (docsToImport.length === 0) {
+          docsToImport = FALLBACK_PRODUCTS;
+        }
         label = "Ürünler";
+      }
+
+      if (docsToImport.length === 0 && type === "all") {
+        docsToImport = [...documents, ...FALLBACK_PRODUCTS];
+      }
+
+      if (docsToImport.length === 0) {
+        setStatusMessage("Yüklenecek veri bulunamadı.");
+        setStatusType("error");
+        setBusy(false);
+        return;
       }
 
       const transaction = client.transaction();
@@ -602,7 +785,7 @@ export function BulkImportTool() {
 
                 <button
                   onClick={() => handleImportByType("product")}
-                  disabled={busy || loading || documents.length === 0}
+                  disabled={busy}
                   style={{
                     background: "#ea580c",
                     color: "#fff",
