@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { productsDb } from "@/data/products";
+import { getProducts } from "@/lib/products";
 import { getBlogPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/seo";
 
@@ -26,14 +26,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: r.priority,
   }));
 
-  productsDb.forEach((p) =>
-    entries.push({
-      url: `${SITE_URL}/urunler/${p.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    })
-  );
+  try {
+    const products = await getProducts();
+    products.forEach((p) =>
+      entries.push({
+        url: `${SITE_URL}/urunler/${p.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.8,
+      })
+    );
+  } catch {
+    // ignore
+  }
 
   try {
     const posts = await getBlogPosts();

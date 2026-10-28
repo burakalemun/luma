@@ -8,6 +8,7 @@ interface BulkStats {
   blogPosts: number;
   workshops: number;
   instagramPosts: number;
+  products?: number;
   total: number;
 }
 
@@ -33,6 +34,7 @@ export function BulkImportTool() {
     workshops: number;
     instagram: number;
     categories: number;
+    products: number;
   } | null>(null);
 
   // Mevcut dökümanların listesi (Silme ekranı için)
@@ -47,13 +49,14 @@ export function BulkImportTool() {
   // Mevcut veritabanı durumunu ve dökümanları sorgula
   const fetchCurrentCountsAndDocs = async () => {
     try {
-      const [pCount, wCount, iCount, cCount, allItems] = await Promise.all([
+      const [pCount, wCount, iCount, cCount, prodCount, allItems] = await Promise.all([
         client.fetch('count(*[_type == "post" && !(_id in path("drafts.**"))])'),
         client.fetch('count(*[_type == "workshop" && !(_id in path("drafts.**"))])'),
         client.fetch('count(*[_type == "instagramPost" && !(_id in path("drafts.**"))])'),
         client.fetch('count(*[_type == "category" && !(_id in path("drafts.**"))])'),
+        client.fetch('count(*[_type == "product" && !(_id in path("drafts.**"))])'),
         client.fetch(
-          `*[_type in ["post", "workshop", "instagramPost", "category"] && !(_id in path("drafts.**"))] | order(_updatedAt desc) {
+          `*[_type in ["post", "workshop", "instagramPost", "category", "product"] && !(_id in path("drafts.**"))] | order(_updatedAt desc) {
             _id,
             _type,
             title,
@@ -68,6 +71,7 @@ export function BulkImportTool() {
         workshops: wCount,
         instagram: iCount,
         categories: cCount,
+        products: prodCount,
       });
 
       setLiveDocs(allItems || []);
@@ -105,7 +109,7 @@ export function BulkImportTool() {
   }, []);
 
   // Toplu Aktarım İşlemi
-  const handleImportByType = async (type: "instagramPost" | "workshop" | "post" | "all") => {
+  const handleImportByType = async (type: "instagramPost" | "workshop" | "post" | "product" | "all") => {
     if (documents.length === 0) return;
 
     try {
@@ -124,6 +128,9 @@ export function BulkImportTool() {
       } else if (type === "post") {
         docsToImport = documents.filter((d) => d._type === "post" || d._type === "category");
         label = "Blog Yazıları ve Kategoriler";
+      } else if (type === "product") {
+        docsToImport = documents.filter((d) => d._type === "product");
+        label = "Ürünler";
       }
 
       const transaction = client.transaction();
@@ -314,7 +321,7 @@ export function BulkImportTool() {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const allDocs: any[] = await client.fetch(
-        `*[_type in ["post", "workshop", "instagramPost", "category"]] { _id }`
+        `*[_type in ["post", "workshop", "instagramPost", "category", "product"]] { _id }`
       );
 
       if (allDocs.length === 0) {
@@ -386,6 +393,8 @@ export function BulkImportTool() {
         return { label: "Instagram", color: "#f472b6", bg: "#db277720" };
       case "category":
         return { label: "Kategori", color: "#fbbf24", bg: "#d9770620" };
+      case "product":
+        return { label: "Ürün", color: "#f97316", bg: "#ea580c20" };
       default:
         return { label: type, color: "#94a3b8", bg: "#47556920" };
     }
@@ -549,6 +558,18 @@ export function BulkImportTool() {
                   Veritabanında: {currentCounts ? currentCounts.categories : "-"}
                 </div>
               </div>
+
+              <div style={{ background: "#242b3a", padding: 18, borderRadius: 8, border: "1px solid #333c50" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.05em", marginBottom: 6 }}>
+                  🛍️ ÜRÜNLER
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#f97316", marginBottom: 4 }}>
+                  {stats ? (stats.products ?? 5) : "-"} Hazır
+                </div>
+                <div style={{ fontSize: 12, color: "#94a3b8" }}>
+                  Veritabanında: {currentCounts ? currentCounts.products : "-"}
+                </div>
+              </div>
             </div>
 
             {/* ACTION CARD */}
@@ -557,7 +578,7 @@ export function BulkImportTool() {
                 🚀 Tek Tıkla Toplu Aktarımı Başlat
               </h2>
               <p style={{ margin: "0 0 20px 0", fontSize: 14, color: "#cbd5e1", lineHeight: 1.6 }}>
-                <code>web/data/</code> altındaki Excel/CSV dosyalarından üretilen <strong>{stats?.total || 39} hazır içeriğin</strong> tamamını Sanity veritabanınıza yükler.
+                <code>web/data/</code> altındaki Excel/CSV dosyalarından üretilen <strong>{stats?.total || 44} hazır içeriğin</strong> tamamını Sanity veritabanınıza yükler.
               </p>
 
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
@@ -576,7 +597,25 @@ export function BulkImportTool() {
                     boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
                   }}
                 >
-                  {busy ? "Aktarılıyor... ⏳" : `🚀 Tümünü Şimdi Aktar (${stats?.total || 39} Döküman)`}
+                  {busy ? "Aktarılıyor... ⏳" : `🚀 Tümünü Şimdi Aktar (${stats?.total || 44} Döküman)`}
+                </button>
+
+                <button
+                  onClick={() => handleImportByType("product")}
+                  disabled={busy || loading || documents.length === 0}
+                  style={{
+                    background: "#ea580c",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: 8,
+                    padding: "12px 20px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: busy || loading ? "not-allowed" : "pointer",
+                    boxShadow: "0 4px 12px rgba(234, 88, 12, 0.3)",
+                  }}
+                >
+                  🛍️ Sadece Ürünleri Yükle ({stats?.products ?? 5} Ürün)
                 </button>
 
                 <button
@@ -738,6 +777,24 @@ export function BulkImportTool() {
                 </button>
 
                 <button
+                  onClick={() => handleDeleteByType("product", "Ürünleri")}
+                  disabled={busy || (currentCounts?.products || 0) === 0}
+                  style={{
+                    background: "#7f1d1d",
+                    color: "#fff",
+                    border: "1px solid #ef444460",
+                    borderRadius: 6,
+                    padding: "8px 14px",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: (currentCounts?.products || 0) === 0 ? "not-allowed" : "pointer",
+                    opacity: (currentCounts?.products || 0) === 0 ? 0.5 : 1,
+                  }}
+                >
+                  🗑️ Tüm Ürünleri Sil ({currentCounts?.products || 0})
+                </button>
+
+                <button
                   onClick={handleDeleteEverything}
                   disabled={busy || liveDocs.length === 0}
                   style={{
@@ -763,6 +820,7 @@ export function BulkImportTool() {
               <div style={{ display: "flex", gap: 6 }}>
                 {[
                   { id: "all", label: `Tümü (${liveDocs.length})` },
+                  { id: "product", label: `Ürün (${currentCounts?.products || 0})` },
                   { id: "post", label: `Blog (${currentCounts?.posts || 0})` },
                   { id: "workshop", label: `Atölye (${currentCounts?.workshops || 0})` },
                   { id: "instagramPost", label: `Instagram (${currentCounts?.instagram || 0})` },

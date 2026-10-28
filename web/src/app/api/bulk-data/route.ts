@@ -123,11 +123,49 @@ export async function GET() {
       };
     });
 
+    // 4. Products
+    const productsFilePath = path.join(dataDir, "products.json");
+    let productDocs: any[] = [];
+    if (fs.existsSync(productsFilePath)) {
+      const productsRaw = JSON.parse(fs.readFileSync(productsFilePath, "utf-8"));
+      productDocs = productsRaw.map((prod: any, idx: number) => {
+        const slug = prod.slug || slugify(prod.title) || `product-${idx + 1}`;
+        return {
+          _id: `product-${slug}`,
+          _type: "product",
+          title: prod.title,
+          slug: { _type: "slug", current: slug },
+          subtitle: prod.subtitle || "",
+          category: prod.category || "Ritüel Kutuları",
+          categories: Array.isArray(prod.categories) ? prod.categories : [prod.category || "Ritüel Kutuları"],
+          price: prod.price || "",
+          badge: prod.badge || null,
+          badgeBg: prod.badgeBg || "bg-[#4A3F35]",
+          order: Number(prod.order) || idx + 1,
+          isFeatured: prod.isFeatured !== false,
+          mainImageUrl: prod.mainImageUrl || "",
+          galleryUrls: Array.isArray(prod.galleryUrls) ? prod.galleryUrls : [],
+          shortDesc: prod.shortDesc || "",
+          longDesc: prod.longDesc || "",
+          message: prod.message || "",
+          isHeated: prod.isHeated !== false,
+          contents: Array.isArray(prod.contents) ? prod.contents : [],
+          usageAreas: Array.isArray(prod.usageAreas) ? prod.usageAreas : [],
+          usageHot: prod.usageHot || "",
+          usageCold: prod.usageCold || "",
+          care: prod.care || "",
+          trendyolUrl: prod.trendyolUrl || "",
+          hbUrl: prod.hbUrl || "",
+        };
+      });
+    }
+
     const allDocuments = [
       ...categoryDocs,
       ...blogDocs,
       ...workshopDocs,
       ...instaDocs,
+      ...productDocs,
     ];
 
     return NextResponse.json({
@@ -137,6 +175,7 @@ export async function GET() {
         blogPosts: blogDocs.length,
         workshops: workshopDocs.length,
         instagramPosts: instaDocs.length,
+        products: productDocs.length,
         total: allDocuments.length,
       },
       documents: allDocuments,

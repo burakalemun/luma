@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { productsDb } from "@/data/products";
+import { getProductBySlug, getProducts } from "@/lib/products";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, SITE_NAME } from "@/lib/seo";
 import ProductGallery from "@/components/product/ProductGallery";
@@ -19,8 +19,11 @@ import {
   Heart,
 } from "lucide-react";
 
-export function generateStaticParams() {
-  return productsDb.map((product) => ({
+export const instant = false;
+
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((product) => ({
     slug: product.slug,
   }));
 }
@@ -31,7 +34,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = productsDb.find((p) => p.slug === slug);
+  const product = await getProductBySlug(slug);
   if (!product) return {};
 
   const title = `${product.title} | ${SITE_NAME}`;
@@ -66,14 +69,15 @@ export default async function ProductDetailPage({
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
 
-  const product = productsDb.find((p) => p.slug === slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
   // Related products (exclude current)
-  const otherProducts = productsDb
+  const allProducts = await getProducts();
+  const otherProducts = allProducts
     .filter((p) => p.slug !== slug)
     .slice(0, 3);
 

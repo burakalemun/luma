@@ -1,6 +1,8 @@
 import { Metadata } from "next";
-import { productsDb, PRODUCT_CATEGORIES } from "@/data/products";
+import { getProducts, getProductCategories } from "@/lib/products";
 import ProductListClient from "@/components/product/ProductListClient";
+
+export const instant = false;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/urunler" },
@@ -9,11 +11,16 @@ export const metadata: Metadata = {
     "Organik kiraz çekirdeği göz maskeleri, boyun ve sırt ısı yastıkları, doğal ritüel ve denge kutuları. El emeği ve sürdürülebilir wellness koleksiyonu.",
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getProductCategories(),
+  ]);
+
   return (
     <ProductListClient
-      products={productsDb}
-      categories={PRODUCT_CATEGORIES}
+      products={products}
+      categories={categories}
     />
   );
 }

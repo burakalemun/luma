@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/MarketplaceBrand";
 import { getInstagramPosts } from "@/lib/instagram";
 import { getBlogPosts } from "@/lib/blog";
+import { getFeaturedProducts } from "@/lib/products";
 import { getLocalProductImage } from "@/lib/images";
 
 export const instant = false;
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [{ posts: instagramPosts }, latestBlogPosts] = await Promise.all([
+  const [{ posts: instagramPosts }, latestBlogPosts, featuredProducts] = await Promise.all([
     getInstagramPosts(),
     getBlogPosts(),
+    getFeaturedProducts(3),
   ]);
   return (
     <div className="flex flex-col min-h-screen">
@@ -151,46 +153,16 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                slug: "luma-warm-hug",
-                title: "Luma Warm Hug",
-                badge: "EN ÇOK SATAN",
-                badgeBg: "bg-primary",
-                desc: "Boyun ve omuz bölgesi için tasarlanmış doğal keten ısı yastığı. Derin doku rahatlaması sağlar.",
-                img: getLocalProductImage("luma-warm-hug", "/images/products/luma-warm-hug.png"),
-                trendyolUrl: TRENDYOL_STORE_URL,
-                hbUrl: HEPSIBURADA_STORE_URL,
-              },
-              {
-                slug: "luma-touch-cherry",
-                title: "Luma Touch Cherry",
-                badge: "YENİ",
-                badgeBg: "bg-secondary",
-                desc: "Göz çevresi için tasarlanmış uyku ve migren terapi maskesi. Işığı tamamen bloke eder.",
-                img: getLocalProductImage("luma-touch-cherry", "/images/products/luma-touch-cherry.jpg"),
-                trendyolUrl: TRENDYOL_STORE_URL,
-                hbUrl: HEPSIBURADA_STORE_URL,
-              },
-              {
-                slug: "luma-ritual-box",
-                title: "LUMA Ritual Box",
-                badge: "RİTÜEL KUTUSU",
-                desc: "Kiraz çekirdekli göz maskesi, lavantalı soya mumu, çiçek çayı ve Spotify listesiyle bütünsel arınma ritüeli.",
-                img: getLocalProductImage("luma-ritual-box", "/images/products/luma-ritual-box.jpg"),
-                trendyolUrl: TRENDYOL_STORE_URL,
-                hbUrl: HEPSIBURADA_STORE_URL,
-              },
-            ].map((product, idx) => (
+            {featuredProducts.map((product, idx) => (
               <div key={idx} className="bg-card border border-border/30 rounded-[28px] shadow-[0_4px_24px_rgba(30,20,10,0.04)] hover:shadow-[0_16px_56px_rgba(30,20,10,0.10)] transition-all duration-500 overflow-hidden group flex flex-col p-0 m-0">
                 <div className="relative w-full aspect-[4/3] bg-[#EBE3D9] overflow-hidden">
                   <img
-                    src={product.img}
+                    src={product.images[0]}
                     alt={product.title}
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
                   />
                   {product.badge && (
-                    <Badge className={`absolute top-4 left-4 ${product.badgeBg} text-white text-[10.5px] uppercase tracking-[0.07em] px-3 py-1.5 rounded-full border-none shadow-sm`}>
+                    <Badge className={`absolute top-4 left-4 ${product.badgeBg || "bg-[#4A3F35]"} text-white text-[10.5px] uppercase tracking-[0.07em] px-3 py-1.5 rounded-full border-none shadow-sm`}>
                       {product.badge}
                     </Badge>
                   )}
@@ -207,7 +179,7 @@ export default async function Home() {
                     <span className="text-[13px] text-foreground font-semibold ml-1">4.8</span>
                   </div>
                   <h3 className="font-serif text-[23px] font-semibold text-foreground mb-2">{product.title}</h3>
-                  <p className="text-[14px] text-muted-foreground line-clamp-2 leading-[1.7]">{product.desc}</p>
+                  <p className="text-[14px] text-muted-foreground line-clamp-2 leading-[1.7]">{product.shortDesc}</p>
 
                   <div className="w-full h-[1px] bg-border/60 my-5" />
 
@@ -217,26 +189,30 @@ export default async function Home() {
                       <span className="material-symbols-outlined text-[14px] opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-200">east</span>
                     </Link>
                     <div className="flex items-center gap-2 w-full sm:w-auto">
-                      <a
-                        href={product.trendyolUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Trendyol'da Satın Al"
-                        className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-8 rounded-full bg-[#F27A1A] hover:bg-[#D66308] text-white px-3.5 text-[11.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
-                      >
-                        <TrendyolIcon className="w-3.5 h-3.5 fill-white" color="#ffffff" />
-                        <span>Trendyol</span>
-                      </a>
-                      <a
-                        href={product.hbUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Hepsiburada'da Satın Al"
-                        className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-8 rounded-full bg-[#FF6000] hover:bg-[#E05300] text-white px-3.5 text-[11.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
-                      >
-                        <HepsiburadaIcon className="w-3.5 h-3.5 fill-white" color="#ffffff" />
-                        <span>Hepsiburada</span>
-                      </a>
+                      {product.trendyolUrl && (
+                        <a
+                          href={product.trendyolUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Trendyol'da Satın Al"
+                          className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-8 rounded-full bg-[#F27A1A] hover:bg-[#D66308] text-white px-3.5 text-[11.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
+                        >
+                          <TrendyolIcon className="w-3.5 h-3.5 fill-white" color="#ffffff" />
+                          <span>Trendyol</span>
+                        </a>
+                      )}
+                      {product.hbUrl && (
+                        <a
+                          href={product.hbUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Hepsiburada'da Satın Al"
+                          className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-8 rounded-full bg-[#FF6000] hover:bg-[#E05300] text-white px-3.5 text-[11.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
+                        >
+                          <HepsiburadaIcon className="w-3.5 h-3.5 fill-white" color="#ffffff" />
+                          <span>Hepsiburada</span>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

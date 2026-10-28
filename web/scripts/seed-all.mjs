@@ -229,7 +229,53 @@ export async function runMasterSeed() {
   console.log(`✅ [Blog] ${blogDocs.length} adet blog yazısı hazırlandı.`);
 
   // ==========================================
-  // 4. MASTER TEK DOSYA: all-data.ndjson
+  // 4. ÜRÜNLER (PRODUCTS)
+  // ==========================================
+  const rawProducts = readJsonOrCsv(
+    path.join(dataDir, "products.json"),
+    path.join(dataDir, "products.csv")
+  );
+
+  const productDocs = rawProducts.map((prod, idx) => {
+    const slug = prod.slug || slugify(prod.title) || `product-${idx + 1}`;
+    return {
+      _id: `product-${slug}`,
+      _type: "product",
+      title: prod.title,
+      slug: { _type: "slug", current: slug },
+      subtitle: prod.subtitle || "",
+      category: prod.category || "Ritüel Kutuları",
+      categories: Array.isArray(prod.categories) ? prod.categories : [prod.category || "Ritüel Kutuları"],
+      price: prod.price || "",
+      badge: prod.badge || null,
+      badgeBg: prod.badgeBg || "bg-[#4A3F35]",
+      order: Number(prod.order) || idx + 1,
+      isFeatured: prod.isFeatured !== false,
+      mainImageUrl: prod.mainImageUrl || "",
+      galleryUrls: Array.isArray(prod.galleryUrls) ? prod.galleryUrls : [],
+      shortDesc: prod.shortDesc || "",
+      longDesc: prod.longDesc || "",
+      message: prod.message || "",
+      isHeated: prod.isHeated !== false,
+      contents: Array.isArray(prod.contents) ? prod.contents : [],
+      usageAreas: Array.isArray(prod.usageAreas) ? prod.usageAreas : [],
+      usageHot: prod.usageHot || "",
+      usageCold: prod.usageCold || "",
+      care: prod.care || "",
+      trendyolUrl: prod.trendyolUrl || "",
+      hbUrl: prod.hbUrl || "",
+    };
+  });
+
+  fs.writeFileSync(
+    path.join(dataDir, "products.ndjson"),
+    productDocs.map((d) => JSON.stringify(d)).join("\n") + "\n"
+  );
+  allDocuments.push(...productDocs);
+  console.log(`✅ [Ürünler] ${productDocs.length} adet ürün hazırlandı.`);
+
+  // ==========================================
+  // 5. MASTER TEK DOSYA: all-data.ndjson
   // ==========================================
   const allNdjsonPath = path.join(dataDir, "all-data.ndjson");
   fs.writeFileSync(

@@ -43,8 +43,8 @@ Web sitenizin tüm mülkiyetinin (barındırma/sunucu, admin paneli ve iletişim
 
 ---
 
-## 3. İçerik ve Blog Yönetim Paneli (Sanity CMS)
-**Amacı:** Sitedeki blog yazılarını, atölye/workshop takvimini ve fotoğrafları hiçbir teknik kodlama bilmeden kendi panelinizden kolayca yönetebilmeniz içindir.
+## 3. Ürün & İçerik Yönetim Paneli (Sanity CMS)
+**Amacı:** Sitedeki **tüm ürünleri (yeni ürün ekleme, fiyat, fotoğraflar/galeri, Trendyol/Hepsiburada linkleri, terapi rehberleri)**, blog yazılarını, atölye takvimini ve Instagram vitrinini hiçbir teknik kodlama bilmeden `siteadresi.com/studio` adresinden kolayca yönetebilmeniz içindir.
 
 ### Adım Adım Ne Yapılacak?
 1. **Kayıt Olun:** [https://www.sanity.io/get-started](https://www.sanity.io/get-started) adresinden e-postanızla ücretsiz üye olun.
