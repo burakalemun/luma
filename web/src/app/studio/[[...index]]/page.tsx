@@ -6,6 +6,14 @@ import { Studio } from "./Studio";
 export const metadata: Metadata = {
   title: "Sanity Studio | The Luma",
   robots: { index: false, follow: false },
+  icons: {
+    icon: [
+      { url: "/favicon.svg?v=20261028", type: "image/svg+xml" },
+      { url: "/icon-32x32.png?v=20261028", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico?v=20261028", sizes: "any" },
+    ],
+    shortcut: ["/favicon.ico?v=20261028"],
+  },
 };
 
 export const viewport: Viewport = {

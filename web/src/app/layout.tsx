@@ -56,11 +56,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.svg?v=20261028", type: "image/svg+xml" },
+      { url: "/icon-32x32.png?v=20261028", sizes: "32x32", type: "image/png" },
+      { url: "/icon-16x16.png?v=20261028", sizes: "16x16", type: "image/png" },
+      { url: "/icon.png?v=20261028", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico?v=20261028", sizes: "any" },
     ],
+    shortcut: ["/favicon.ico?v=20261028"],
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png?v=20261028", sizes: "180x180", type: "image/png" },
     ],
   },
 };
@@ -73,6 +77,11 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261028" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png?v=20261028" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png?v=20261028" />
+        <link rel="shortcut icon" href="/favicon.ico?v=20261028" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261028" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet" />
       </head>
       <body
