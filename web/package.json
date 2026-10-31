@@ -9,8 +9,9 @@
     "lint": "eslint",
     "seed:all": "node scripts/seed-all.mjs",
     "seed:instagram": "node scripts/seed-sanity.mjs",
+    "seed:products": "node scripts/seed-products.mjs",
     "import:all": "npx sanity datasets import ./data/all-data.ndjson production --replace",
-    "import:sanity": "npx sanity datasets import ./data/all-data.ndjson production --replace"
+    "import:products": "npx sanity dataset import ./data/products.ndjson --dataset production --replace"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

@@ -13,7 +13,7 @@ import {
 import { getInstagramPosts } from "@/lib/instagram";
 import { getBlogPosts } from "@/lib/blog";
 import { getFeaturedProducts } from "@/lib/products";
-import { getLocalProductImage } from "@/lib/images";
+import { getHomeSettings } from "@/lib/homeSettings";
 
 export const instant = false;
 
@@ -22,11 +22,37 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [{ posts: instagramPosts }, latestBlogPosts, featuredProducts] = await Promise.all([
+  const [
+    { posts: instagramPosts },
+    latestBlogPosts,
+    featuredProducts,
+    homeSettings,
+  ] = await Promise.all([
     getInstagramPosts(),
     getBlogPosts(),
     getFeaturedProducts(3),
+    getHomeSettings(),
   ]);
+
+  // Helper: split title to highlight specific word
+  const renderHeroTitle = () => {
+    const title = homeSettings.heroTitle || "Doğanın Sıcaklığını Bedeninize Taşıyın";
+    const highlight = homeSettings.heroTitleHighlight || "Bedeninize";
+
+    if (!highlight || !title.includes(highlight)) {
+      return title;
+    }
+
+    const parts = title.split(highlight);
+    return (
+      <>
+        {parts[0]}
+        <span className="text-primary">{highlight}</span>
+        {parts[1]}
+      </>
+    );
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
 
@@ -38,29 +64,27 @@ export default async function Home() {
           <div className="inline-flex items-center gap-2 mb-6">
             <span className="w-8 h-[1px] bg-secondary/60" />
             <p className="text-[11px] uppercase tracking-[0.1em] text-secondary font-bold">
-              DOĞAL ISI TERAPİSİ
+              {homeSettings.heroBadge}
             </p>
           </div>
           <h1 className="font-serif text-[44px] md:text-[60px] lg:text-[66px] font-semibold text-foreground leading-[1.05] tracking-[-0.03em] max-w-[580px]">
-            Doğanın<br className="hidden sm:block" /> Sıcaklığını<br className="hidden sm:block" />
-            <span className="text-primary">Bedeninize</span> Taşıyın
+            {renderHeroTitle()}
           </h1>
           <p className="text-[16.5px] md:text-[17.5px] text-muted-foreground leading-[1.8] max-w-[460px] mt-6 font-light">
-            Geleneksel kiraz çekirdeği termoterapisi ve organik keten kumaşlarla
-            bedeninizi dinlendirin. Her ürün özenle el yapımı.
+            {homeSettings.heroDescription}
           </p>
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-10">
-            <Link href="/urunler">
+            <Link href={homeSettings.heroPrimaryButtonLink || "/urunler"}>
               <Button className="w-full sm:w-auto bg-[#B95B32] hover:bg-[#A34F2A] text-white rounded-[14px] h-[52px] px-8 text-[15px] font-semibold transition-all duration-300 shadow-lg shadow-[#B95B32]/25 hover:shadow-xl hover:shadow-[#B95B32]/35 hover:-translate-y-0.5">
-                Ürünleri İncele
+                {homeSettings.heroPrimaryButtonText || "Ürünleri İncele"}
                 <span className="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
               </Button>
             </Link>
-            <Link href="/hakkimizda">
+            <Link href={homeSettings.heroSecondaryButtonLink || "/hakkimizda"}>
               <Button variant="ghost" className="w-full sm:w-auto text-foreground hover:bg-muted/50 rounded-[14px] h-[52px] px-6 text-[15px] transition-all">
-                Hikayemizi Oku
+                {homeSettings.heroSecondaryButtonText || "Hikayemizi Oku"}
               </Button>
             </Link>
           </div>
@@ -107,7 +131,7 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Right — Hero Image */}
+        {/* Right — Hero Image (Sanity Managed or Local Fallback) */}
         <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center mt-4 lg:mt-0">
           <div className="absolute top-10 right-0 lg:-right-10 w-[320px] h-[320px] rounded-full bg-primary/10 blur-[90px] pointer-events-none" />
           <div className="absolute bottom-0 left-10 w-[260px] h-[260px] rounded-full bg-secondary/10 blur-[70px] pointer-events-none" />
@@ -115,8 +139,8 @@ export default async function Home() {
           <div className="relative w-full max-w-[500px] group">
             <div className="w-full aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_30px_80px_rgba(30,20,10,0.12)] relative">
               <img
-                src={getLocalProductImage("luma-warm-hug-lifestyle", "/images/products/luma-warm-hug-lifestyle.jpg")}
-                alt="The Luma – El Yapımı Doğal Isı Yastıkları ve Ritüel Ürünleri"
+                src={homeSettings.heroImageUrl}
+                alt={homeSettings.heroTitle || "The Luma"}
                 className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1b1510]/20 to-transparent pointer-events-none" />
@@ -128,8 +152,12 @@ export default async function Home() {
                 <img src="/images/logo-mark.png" alt="The Luma" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[14px] font-semibold text-foreground tracking-tight">Doğal Kiraz Çekirdeği</span>
-                <span className="text-[12.5px] text-muted-foreground mt-0.5">Geleneksel Isıl Terapi</span>
+                <span className="text-[14px] font-semibold text-foreground tracking-tight">
+                  {homeSettings.heroFloatingCardTitle || "Doğal Kiraz Çekirdeği"}
+                </span>
+                <span className="text-[12.5px] text-muted-foreground mt-0.5">
+                  {homeSettings.heroFloatingCardSubtitle || "Geleneksel Isıl Terapi"}
+                </span>
               </div>
             </div>
           </div>
@@ -226,18 +254,15 @@ export default async function Home() {
       <section className="w-full bg-background py-24 md:py-28">
         <div className="mx-auto w-full max-w-[1320px] px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-[11px] uppercase tracking-[0.1em] text-secondary font-bold mb-3">NEDEN LUMA?</p>
+            <p className="text-[11px] uppercase tracking-[0.1em] text-secondary font-bold mb-3">
+              {homeSettings.whyLumaBadge || "NEDEN LUMA?"}
+            </p>
             <h2 className="font-serif text-[38px] md:text-[46px] font-semibold text-foreground leading-[1.1]">
-              Doğallık, El Emeği, Şifa
+              {homeSettings.whyLumaTitle || "Doğallık, El Emeği, Şifa"}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: "eco", title: "%100 Doğal İçerik", desc: "Sentetik madde, katkı veya kimyasal içermez. Sadece doğanın saf ürünleri." },
-              { icon: "handyman", title: "El Yapımı Üretim", desc: "Her ürün, Türkiye'de usta eller tarafından tek tek özenle hazırlanır." },
-              { icon: "thermostat", title: "Isı & Soğuk Terapi", desc: "Hem sıcak hem soğuk uygulamalara uygun, çift yönlü terapi imkânı." },
-              { icon: "favorite", title: "İyileştirici Etki", desc: "Kas gevşemesi, ağrı giderimi ve derin rahatlama için bilimsel temelli tasarım." },
-            ].map((item, idx) => (
+            {(homeSettings.whyLumaItems || []).map((item, idx) => (
               <div key={idx} className="flex flex-col items-start gap-4 p-7 bg-card rounded-[24px] border border-border/40 hover:shadow-[0_8px_32px_rgba(30,20,10,0.06)] transition-shadow duration-300 group">
                 <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
                   <span className="material-symbols-outlined text-secondary text-[22px]">{item.icon}</span>
@@ -400,7 +425,7 @@ export default async function Home() {
         </section>
       )}
 
-      {/* ─── BRAND QUOTE STRIP ───────────────────────────────────── */}
+      {/* ─── BRAND QUOTE STRIP (Sanity Managed) ───────────────────── */}
       <section className="relative w-full bg-secondary py-28 md:py-36 flex flex-col items-center text-center px-6 overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_white,_transparent_70%)]" />
         <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white/5 blur-3xl" />
@@ -412,14 +437,15 @@ export default async function Home() {
           className="h-20 w-auto object-contain mb-8 relative z-10 opacity-90 drop-shadow-sm hover:opacity-100 transition-opacity"
         />
         <h2 className="font-serif italic text-[38px] md:text-[54px] text-[#FDFAF7] leading-[1.15] max-w-[820px] relative z-10">
-          &quot;Sıcaklık iyileştirir,<br className="hidden md:block" /> doğa dengeler.&quot;
+          &quot;{homeSettings.quoteText || "Sıcaklık iyileştirir, doğa dengeler."}&quot;
         </h2>
         <p className="text-[17px] text-white/65 mt-8 max-w-[580px] font-light leading-[1.75] relative z-10">
-          Her ürünümüz, yoğun günlerin ardından bedeninize ve zihninize hak ettiği molayı vermek için özenle elde üretilir.
+          {homeSettings.quoteSubtext ||
+            "Her ürünümüz, yoğun günlerin ardından bedeninize ve zihninize hak ettiği molayı vermek için özenle elde üretilir."}
         </p>
-        <Link href="/hakkimizda" className="relative z-10">
+        <Link href={homeSettings.quoteButtonLink || "/hakkimizda"} className="relative z-10">
           <Button className="mt-12 bg-transparent border border-white/40 text-white hover:bg-white hover:text-secondary rounded-[14px] h-[52px] px-9 text-[14.5px] font-semibold transition-all duration-300">
-            Hikayemizi Keşfet
+            {homeSettings.quoteButtonText || "Hikayemizi Keşfet"}
           </Button>
         </Link>
       </section>
